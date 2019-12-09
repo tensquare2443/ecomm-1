@@ -1,6 +1,5 @@
-# ecomm-1
-
-> A Vue.js project
+# A Vue.js E-Commerce Application
+Vue, Vue Router, Vuex, Stripe, Jest, Nightwatch, SCSS, AWS Lambda, Amazon API Gateway, AWS Amplify, DynamoDB  
 
 ## Build Setup
 
