@@ -1,7 +1,7 @@
 <template>
   <div class="nav" style="position: relative;">
     <div class="nav__content-container">
-      <h1 class="nav__logo">
+      <h1 class="nav__logo sitebrand">
         <span @click="changeRoute('/')" class="nav__logo-txt">Brand</span>
       </h1>
       <div @mouseleave="toggleDropdown">
@@ -55,9 +55,7 @@ export default {
   border-bottom: 1px solid #aaa;
 }
 .nav__logo {
-  font-family: "Calistoga", cursive;
   font-size: 3em;
-  color: #313190;
   text-align: center;
   margin-top: 0;
   margin-bottom: 0.4em;

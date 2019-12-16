@@ -203,7 +203,7 @@
       "size": "L"
     }
   ],
-  "productPath": "men_tops_button-downs_denim button-down shirt",
+  "productPath": "[men]_[tops]_[button-downs]_#denim button-down shirt#",
   "productSale": false,
   "tags": [
     "long-sleeve",
