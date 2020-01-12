@@ -16,38 +16,42 @@
     >
       <p class="nav__category-txt">New</p>
     </div>
-    <div
-      @click="changeRoute('/products/men')"
-      @mouseenter="toggleDropdown('men')"
-      :class="{ 'nav__category--active': navDropdown === 'men' }"
-      class="nav__category"
-    >
-      <p class="nav__category-txt">Men</p>
-    </div>
-    <div
-      @click="changeRoute('/products/women')"
-      @mouseenter="toggleDropdown('women')"
-      :class="{ 'nav__category--active': navDropdown === 'women' }"
-      class="nav__category"
-    >
-      <p class="nav__category-txt">Women</p>
-    </div>
-    <div
-      @click="changeRoute('/products')"
-      @mouseenter="toggleDropdown('boys')"
-      :class="{ 'nav__category--active': navDropdown === 'boys' }"
-      class="nav__category"
-    >
-      <p class="nav__category-txt">Boys</p>
-    </div>
-    <div
-      @click="changeRoute('/products')"
-      @mouseenter="toggleDropdown('girls')"
-      :class="{ 'nav__category--active': navDropdown === 'girls' }"
-      class="nav__category"
-    >
-      <p class="nav__category-txt">Girls</p>
-    </div>
+    <router-link to="/products/men" class="nav__category-link">
+      <div
+        @mouseenter="toggleDropdown('men')"
+        :class="{ 'nav__category--active': navDropdown === 'men' }"
+        class="nav__category"
+      >
+        <p class="nav__category-txt">Men</p>
+      </div>
+    </router-link>
+    <router-link to="/products/women" class="nav__category-link">
+      <div
+        @mouseenter="toggleDropdown('women')"
+        :class="{ 'nav__category--active': navDropdown === 'women' }"
+        class="nav__category"
+      >
+        <p class="nav__category-txt">Women</p>
+      </div>
+    </router-link>
+    <router-link to="/products/boys" class="nav__category-link">
+      <div
+        @mouseenter="toggleDropdown('boys')"
+        :class="{ 'nav__category--active': navDropdown === 'boys' }"
+        class="nav__category"
+      >
+        <p class="nav__category-txt">Boys</p>
+      </div>
+    </router-link>
+    <router-link to="/products/girls" class="nav__category-link">
+      <div
+        @mouseenter="toggleDropdown('girls')"
+        :class="{ 'nav__category--active': navDropdown === 'girls' }"
+        class="nav__category"
+      >
+        <p class="nav__category-txt">Girls</p>
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -79,5 +83,9 @@ export default {
 }
 .nav__category-txt {
   margin: 0;
+}
+.nav__category-link {
+  text-decoration: none;
+  color: #333;
 }
 </style>

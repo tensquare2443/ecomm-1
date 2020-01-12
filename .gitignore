@@ -16,4 +16,6 @@ selenium-debug.log
 *.njsproj
 *.sln
 
+src/appVars.js
 src/vars.js
+src/jsondata.js

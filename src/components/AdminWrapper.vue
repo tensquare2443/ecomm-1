@@ -1,8 +1,8 @@
 <template>
   <div>
-    <AdminNav :changeRoute="changeRoute" />
+    <AdminNav :reRoute="reRoute" />
     <div class="admin__grid">
-      <AdminSidebar :adminSubRoute="adminSubRoute" :changeRoute="changeRoute" />
+      <AdminSidebar :adminSubRoute="adminSubRoute" :reRoute="reRoute" />
       <div class="admin__content">
         <slot></slot>
       </div>
@@ -19,7 +19,7 @@ export default {
     AdminNav,
     AdminSidebar
   },
-  props: ["changeRoute", "adminSubRoute"]
+  props: ["reRoute", "adminSubRoute"]
 };
 </script>
 
@@ -34,4 +34,5 @@ export default {
   padding-left: 15px;
   padding-right: 15px;
 }
+
 </style>

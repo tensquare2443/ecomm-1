@@ -1,4 +1,4 @@
-import { apiKey } from "../../vars.js";
+import { apiKey, signInUserEndpoint } from "../../appVars.js";
 
 export default function(e) {
   e.preventDefault();
@@ -6,7 +6,9 @@ export default function(e) {
   this.signInForm.formInvalidity = false;
   this.signInForm.submitting = true;
 
-  fetch(require("../../vars").authorizeUserEndpoint, {
+  console.log(signInUserEndpoint);
+
+  fetch(signInUserEndpoint, {
     headers: {
       "x-api-key": apiKey,
       "x-username": this.signInForm.username.value,
@@ -25,17 +27,19 @@ export default function(e) {
           "Invalid username or password");
       }
 
-      this.user = {
-        username: json.user.username,
-        token: json.user.token
-      };
-      this.signInForm.submitting = false;
+      const username = json.user.username;
+      const token = json.user.token;
 
-      this.changeRoute("/admin/products");
+      this.user = { username, token };
+      sessionStorage.setItem("ecommAppUsername", username);
+      sessionStorage.setItem("ecommAppToken", token);
+      this.signInForm.submitting = false;
+      this.reRoute("/admin/products", true);
     })
     .catch(e => {
       this.signInForm.submitting = false;
+      this.signInForm.formInvalidity = "Invalid username or password"
       console.log(e);
-      alert(e);
+      // alert(e);
     });
 }

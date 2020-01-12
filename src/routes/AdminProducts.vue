@@ -1,9 +1,86 @@
 <template>
   <div class="admin">
-    <AdminNav :changeRoute="changeRoute" />
+    <AdminNav :reRoute="reRoute" />
     <div class="admin__grid">
-      <AdminSidebar :adminSubRoute="adminSubRoute" :changeRoute="changeRoute" />
-      <h1>Admin Products</h1>
+      <AdminSidebar :adminSubRoute="adminSubRoute" :reRoute="reRoute" />
+      <Loading v-if="authorizingUser || products.length === 0" />
+      <div v-else class="content">
+        <h1 class="title">My Products</h1>
+        <div class="products-table">
+          <div class="table-header divider">
+            <div class="table-txt-container">
+              <p class="table-txt header-txt">Name</p>
+            </div>
+            <div class="table-txt-container">
+              <p class="table-txt header-txt">Department</p>
+            </div>
+            <div class="table-txt-container">
+              <p class="table-txt header-txt">Path</p>
+            </div>
+            <div class="table-txt-container">
+              <p class="table-txt header-txt">Created</p>
+            </div>
+            <div class="table-txt-container--price">
+              <p class="table-txt header-txt product-price-txt">Price</p>
+            </div>
+            <div class="table-txt-container">
+              <p class="table-txt header-txt"></p>
+            </div>
+          </div>
+          <div
+            v-for="(product, i) in products"
+            :class="{ divider: i < products.length - 1 }"
+            :key="product.productPath['S']"
+            class="table-row"
+          >
+            <div class="table-txt-container">
+              <p class="table-txt">{{ product.name["S"] }}</p>
+            </div>
+            <div class="table-txt-container">
+              <p class="table-txt">
+                {{ getDepartment(product.productPath["S"]) }}
+              </p>
+            </div>
+            <div class="table-txt-container">
+              <p class="table-txt">{{ getPath(product.productPath["S"]) }}</p>
+            </div>
+            <div class="table-txt-container">
+              <p class="table-txt">
+                {{ getCreationDate(+product.createdAt["N"]) }}
+              </p>
+            </div>
+            <div class="table-txt-container--price">
+              <p class="table-txt product-price-txt">
+                ${{ product.price["N"] }}
+              </p>
+            </div>
+            <div class="edit-product-symbol-container">
+              <!-- <router-link :to="`/admin/product/${getProductId(product.productPath['S'])}`"> -->
+              <router-link
+                :to="
+                  `/admin/product/${formatProductPath(
+                    product.productPath['S']
+                  )}`
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="edit-product-symbol"
+                >
+                  <path
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    fill="#bbb"
+                  />
+                  <path d="M0 0h24v24H0z" fill="none" />
+                </svg>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -11,12 +88,90 @@
 <script>
 import AdminNav from "../components/AdminNav";
 import AdminSidebar from "../components/AdminSidebar";
+import Loading from "../components/Loading";
 
 export default {
-  props: ["adminSubRoute", "changeRoute"],
+  props: [
+    "adminSubRoute",
+    "reRoute",
+    "checkAuthToken",
+    "authorizingUser",
+    "getProducts",
+    "products"
+  ],
   components: {
     AdminNav,
-    AdminSidebar
+    AdminSidebar,
+    Loading
+  },
+  methods: {
+    getDepartment: function(productPath) {
+      let department = productPath
+        .split("_")[1]
+        .replace("[", "")
+        .replace("]", "");
+
+      return department
+        .split("")
+        .map((letter, index) => {
+          if (index === 0) {
+            return letter.toUpperCase();
+          } else return letter;
+        })
+        .join("");
+    },
+    getPath: function(productPath) {
+      productPath = productPath
+        .replace("[]_", "")
+        .split("_")
+        .map(pathSection => pathSection.replace(/[\][#]/g, ""));
+
+      productPath = productPath.slice(0, productPath.length - 1);
+
+      return productPath.join("/");
+    },
+    getCreationDate: function(date) {
+      const months = {
+        Jan: "01",
+        Feb: "02",
+        Mar: "03",
+        Apr: "04",
+        May: "05",
+        Jun: "06",
+        Jul: "07",
+        Aug: "08",
+        Sep: "09",
+        Oct: "10",
+        Nov: "11",
+        Dec: "12"
+      };
+      const dateElements = new Date(date).toString().split(" ");
+      const month = months[dateElements[1]];
+      const day = dateElements[2];
+      const year = dateElements[3];
+
+      return `${month}/${day}/${year}`;
+    },
+    getProductId: function(productPath) {
+      return productPath.split("#")[1];
+    },
+    formatProductPath: function(productPath) {
+      return productPath
+        .replace("[]_", "")
+        .split("_")
+        .map(pathSection => pathSection.replace(/[\][#]/g, ""))
+        .join("/");
+    }
+  },
+  created() {
+    console.log("admin products created");
+
+    if (this.$route.path !== "/admin/products") {
+      this.$router.push("/admin/products");
+    }
+
+    this.checkAuthToken();
+    this.getProducts();
   }
 };
 </script>
@@ -25,5 +180,59 @@ export default {
 .admin__grid {
   display: grid;
   grid-template-columns: 220px auto;
+}
+.content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.title {
+  text-align: center;
+}
+.products-table {
+  width: 100%;
+  max-width: 1000px;
+  display: block;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 15fr 7fr 15fr 6fr 4fr 3fr;
+}
+.divider {
+  border-bottom: 1px solid #ddd;
+}
+.header-txt {
+  font-weight: bold;
+}
+.table-txt-container {
+  display: flex;
+  align-items: center;
+}
+.table-txt-container--price {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.product-price-txt {
+  text-align: right;
+}
+.edit-product-symbol-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.edit-product-symbol {
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.1s;
+}
+.edit-product-symbol:hover {
+  background-color: #ddd;
 }
 </style>

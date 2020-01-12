@@ -2,11 +2,13 @@
   <div class="nav" style="position: relative;">
     <div class="nav__content-container">
       <h1 class="nav__logo sitebrand">
-        <span @click="changeRoute('/')" class="nav__logo-txt">Brand</span>
+        <router-link to="/" class="nav__logo-txt sitebrand">
+          Brand
+        </router-link>
       </h1>
       <div @mouseleave="toggleDropdown">
         <NavCategories
-          :changeRoute="changeRoute"
+          :reRoute="reRoute"
           :toggleDropdown="toggleDropdown"
           :navDropdown="navDropdown"
         />
@@ -22,10 +24,26 @@
         >
           <h3 style="text-align: center;">New Arrivals Dropdown</h3>
         </div>
-        <DropdownMen :changeRoute="changeRoute" :navDropdown="navDropdown" />
-        <DropdownWomen :changeRoute="changeRoute" :navDropdown="navDropdown" />
-        <DropdownBoys :changeRoute="changeRoute" :navDropdown="navDropdown" />
-        <DropdownGirls :changeRoute="changeRoute" :navDropdown="navDropdown" />
+        <DropdownMen
+          :reRoute="reRoute"
+          :navDropdown="navDropdown"
+          :getProducts="getProducts"
+        />
+        <DropdownWomen
+          :reRoute="reRoute"
+          :navDropdown="navDropdown"
+          :getProducts="getProducts"
+        />
+        <DropdownBoys
+          :reRoute="reRoute"
+          :navDropdown="navDropdown"
+          :getProducts="getProducts"
+        />
+        <DropdownGirls
+          :reRoute="reRoute"
+          :navDropdown="navDropdown"
+          :getProducts="getProducts"
+        />
       </div>
     </div>
   </div>
@@ -39,7 +57,7 @@ import DropdownBoys from "./DropdownBoys";
 import DropdownGirls from "./DropdownGirls";
 
 export default {
-  props: ["changeRoute", "toggleDropdown", "navDropdown"],
+  props: ["reRoute", "toggleDropdown", "navDropdown", "getProducts"],
   components: {
     NavCategories,
     DropdownMen,
@@ -63,6 +81,7 @@ export default {
 }
 .nav__logo-txt {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .nav__btn {

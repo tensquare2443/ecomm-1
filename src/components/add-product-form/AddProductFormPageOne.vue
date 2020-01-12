@@ -1,11 +1,11 @@
 <template>
-  <form @submit="addProductFormPageOneSubmit" class="add-product-form">
-    <h1 class="add-product-form__title">
+  <form @submit="apfPageOneSubmit" class="add-product-form">
+    <h1 class="title">
       Add a Product
     </h1>
-    <div class="add-product-form__section">
-      <h3 class="add-product-form__input-label-lg">Product Name:</h3>
-      <p class="add-product-form__input-help-txt">
+    <div class="section">
+      <h3 class="input-label-lg">Product Name:</h3>
+      <p class="input-help-txt">
         Enter the product name. Use the formatting you'd like to see on the
         website. So if you'd like the first letter of the product name to be
         capitalized on the website, then use that formatting when entering it
@@ -15,20 +15,33 @@
       <input
         v-model="addProductForm.name.value"
         :class="{ 'invalid-input': addProductForm.name.invalidity }"
-        class="add-product-form__txt-input"
+        class="txt-input"
         type="text"
         placeholder="Flannel Button-Down Shirt"
       />
-      <p
-        v-if="addProductForm.name.invalidity"
-        class="add-product-form__invalid-txt"
-      >
+      <p v-if="addProductForm.name.invalidity" class="invalid-txt">
         {{ addProductForm.name.invalidity }}
       </p>
     </div>
-    <div class="add-product-form__section">
-      <h3 class="add-product-form__input-label-lg">Location:</h3>
-      <p class="add-product-form__input-help-txt">
+    <div class="section">
+      <h3 class="input-label-lg">Product Price:</h3>
+      <p class="input-help-txt">
+        Enter the product price in USD. Enter a valid number. E.g., "29.95". Don't use the dollar sign ("$").
+      </p>
+      <input
+        v-model="addProductForm.price.value"
+        :class="{ 'invalid-input': addProductForm.price.invalidity }"
+        class="txt-input"
+        type="text"
+        placeholder="35.00"
+      />
+      <p v-if="addProductForm.price.invalidity" class="invalid-txt">
+        {{ addProductForm.price.invalidity }}
+      </p>
+    </div>
+    <div class="section">
+      <h3 class="input-label-lg">Location:</h3>
+      <p class="input-help-txt">
         Enter the department the product should be in followed by any
         subcategories within that department, separated by forward slashes.
         E.g., if the department is "women", the first subcategory within the
@@ -40,20 +53,17 @@
       <input
         v-model="addProductForm.location.value"
         :class="{ 'invalid-input': addProductForm.location.invalidity }"
-        class="add-product-form__txt-input"
+        class="txt-input"
         type="text"
         placeholder="men/pants/khakis"
       />
-      <p
-        v-if="addProductForm.location.invalidity"
-        class="add-product-form__invalid-txt"
-      >
+      <p v-if="addProductForm.location.invalidity" class="invalid-txt">
         {{ addProductForm.location.invalidity }}
       </p>
     </div>
-    <div class="add-product-form__section">
-      <h3 class="add-product-form__input-label-lg">Options:</h3>
-      <p class="add-product-form__input-help-txt">
+    <div class="section">
+      <h3 class="input-label-lg">Options:</h3>
+      <p class="input-help-txt">
         Enter the name of the option available with the product. Then, enter the
         the possible values of this option separated by commas. For each option
         name and option value, use the formatting you'd like to see on the
@@ -64,16 +74,16 @@
       </p>
 
       <div v-for="(option, index) in addProductForm.options">
-        <p class="add-product-form__option-input-label">
+        <p class="option-input-label">
           <strong>Option {{ index + 1 }}</strong>
         </p>
-        <p class="add-product-form__option-input-label">
+        <p class="option-input-label">
           Name of option:
         </p>
         <input
           v-if="index === 0"
           :value="`${option.name.value} (required)`"
-          class="add-product-form__txt-input"
+          class="txt-input"
           type="text"
           disabled
         />
@@ -81,35 +91,32 @@
           v-else
           v-model="option.name.value"
           :class="{ 'invalid-input': option.name.invalidity }"
-          class="add-product-form__txt-input"
+          class="txt-input"
           type="text"
         />
-        <p v-if="option.name.invalidity" class="add-product-form__invalid-txt">
+        <p v-if="option.name.invalidity" class="invalid-txt">
           {{ option.name.invalidity }}
         </p>
-        <p class="add-product-form__option-input-label">
+        <p class="option-input-label">
           Possible option values:
         </p>
         <input
           v-model="option.values.value"
           :class="{ 'invalid-input': option.values.invalidity }"
-          class="add-product-form__txt-input"
+          class="txt-input"
           type="text"
-          placeholder="red,green,blue"
+          placeholder="Red,Green,Blue"
         />
-        <p
-          v-if="option.values.invalidity"
-          class="add-product-form__invalid-txt"
-        >
+        <p v-if="option.values.invalidity" class="invalid-txt">
           {{ option.values.invalidity }}
         </p>
       </div>
-      <div class="add-product-form__option-btns-container">
-        <div class="add-product-form__option-btn-container left">
+      <div class="option-btns-container">
+        <div class="option-btn-container left">
           <button
             v-if="addProductForm.options.length > 1"
-            @click="editProductFormOptions('remove')"
-            class="add-product-form__remove-option-btn"
+            @click="editApfOptionsLength('remove')"
+            class="remove-option-btn"
             type="button"
           >
             Remove Option
@@ -117,13 +124,13 @@
           <button
             v-else
             disabled
-            class="add-product-form__remove-option-btn disabled"
+            class="remove-option-btn disabled"
             type="button"
           >
             Remove Option
           </button>
         </div>
-        <div class="add-product-form__option-btn-container right">
+        <div class="option-btn-container right">
           <button
             v-if="
               addProductForm.options[addProductForm.options.length - 1].name
@@ -131,84 +138,79 @@
                 addProductForm.options[addProductForm.options.length - 1].values
                   .value.length > 0
             "
-            @click="editProductFormOptions('add')"
-            class="add-product-form__add-option-btn"
+            @click="editApfOptionsLength('add')"
+            class="add-option-btn"
             type="button"
           >
             Add Another Option
           </button>
-          <button
-            v-else
-            disabled
-            class="add-product-form__add-option-btn disabled"
-            type="button"
-          >
+          <button v-else disabled class="add-option-btn disabled" type="button">
             Add Another Option
           </button>
         </div>
       </div>
     </div>
-    <div class="add-product-form__section">
-      <h3 class="add-product-form__input-label-lg">Sale Status:</h3>
-      <div class="add-product-form__on-sale-container">
-        <div class="add-product-form__on-sale-checkbox-container">
+    <!-- <div class="section">
+      <h3 class="input-label-lg">Sale Status:</h3>
+      <div class="on-sale-container">
+        <div class="on-sale-checkbox-container">
           <input v-model="addProductForm.sale" type="checkbox" />
         </div>
         <div>
-          <p class="add-product-form__on-sale-txt">
+          <p class="on-sale-txt">
             Check this box if the product should be "on sale" either immediately
             or on a future date.
           </p>
         </div>
       </div>
       <div v-if="addProductForm.sale">
-        <p class="add-product-form__input-help-txt">
+        <p class="input-help-txt">
           Enter the beginning and ending sale in "MM/DD/YYYY" format. E.g.,
           "02/27/2021"
         </p>
-        <div class="add-product-form__sale-dates">
-          <div class="add-product-form__sale-date left">
-            <p class="add-product-form__sale-input-label">Sale begins on:</p>
+        <div class="sale-dates">
+          <div class="sale-date left">
+            <p class="sale-input-label">Sale begins on:</p>
             <input
               v-model="addProductForm.saleDetails.start.value"
               :class="{
                 'invalid-input': addProductForm.saleDetails.start.invalidity
               }"
-              class="add-product-form__txt-input"
+              class="txt-input"
               type="text"
               placeholder="04/08/2021"
             />
             <p
               v-if="addProductForm.saleDetails.start.invalidity"
-              class="add-product-form__invalid-txt"
+              class="invalid-txt"
             >
               {{ addProductForm.saleDetails.start.invalidity }}
             </p>
           </div>
-          <div class="add-product-form__sale-date right">
-            <p class="add-product-form__sale-input-label">Sale ends on:</p>
+          <div class="sale-date right">
+            <p class="sale-input-label">Sale ends on:</p>
             <input
               v-model="addProductForm.saleDetails.end.value"
               :class="{
                 'invalid-input': addProductForm.saleDetails.end.invalidity
               }"
-              class="add-product-form__txt-input"
+              class="txt-input"
               type="text"
               placeholder="05/22/2021"
             />
             <p
               v-if="addProductForm.saleDetails.end.invalidity"
-              class="add-product-form__invalid-txt"
+              class="invalid-txt"
             >
               {{ addProductForm.saleDetails.end.invalidity }}
             </p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="add-product-form__section">
-      <h3 class="add-product-form__input-label-lg">Tags:</h3>
-      <p class="add-product-form__input-help-txt">
+    </div> -->
+    <div class="section">
+      <h3 class="input-label-lg">Tags:</h3>
+      <p class="input-help-txt">
         Enter tags that should be connected to the product, if there are any.
         Use tags on items belonging to certain "categories" that make sense and
         that are not used in the "Product Location". Separate tags by commas.
@@ -219,29 +221,22 @@
       <input
         v-model="addProductForm.tags.value"
         :class="{ 'invalid-input': addProductForm.tags.invalidity }"
-        class="add-product-form__txt-input"
+        class="txt-input"
         type="text"
         placeholder="Short-sleeve,Denim"
       />
-      <p
-        v-if="addProductForm.tags.invalidity"
-        class="add-product-form__invalid-txt"
-      >
+      <p v-if="addProductForm.tags.invalidity" class="invalid-txt">
         {{ addProductForm.tags.invalidity }}
       </p>
     </div>
 
-    <button class="add-product-form__submit-btn" type="submit">Next</button>
+    <button class="submit-btn" type="submit">Next</button>
   </form>
 </template>
 
 <script>
 export default {
-  props: [
-    "addProductForm",
-    "addProductFormPageOneSubmit",
-    "editProductFormOptions"
-  ]
+  props: ["addProductForm", "apfPageOneSubmit", "editApfOptionsLength"]
 };
 </script>
 
@@ -256,27 +251,27 @@ export default {
   box-sizing: border-box;
   background-color: #fbfbfb;
 }
-.add-product-form__title {
+.title {
   text-align: center;
 }
-.add-product-form__section {
+.section {
   border-top: 1px solid #e2e2e2;
   margin-top: 20px;
 }
-.add-product-form__input-label-lg {
+.input-label-lg {
   margin-bottom: 5px;
 }
-.add-product-form__input-help-txt {
+.input-help-txt {
   font-size: 14px;
   margin-top: 5px;
   margin-bottom: 8px;
 }
-.add-product-form__option-input-label,
-.add-product-form__sale-input-label {
+.option-input-label,
+.sale-input-label {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-.add-product-form__txt-input {
+.txt-input {
   padding: 5px;
   font-size: 16px;
   width: 100%;
@@ -284,37 +279,37 @@ export default {
   border-radius: 3px;
   border: 1px solid #ddd;
 }
-.add-product-form__on-sale-container {
+.on-sale-container {
   display: flex;
   align-items: center;
 }
-.add-product-form__on-sale-checkbox-container {
+.on-sale-checkbox-container {
   display: flex;
   margin-right: 5px;
 }
-.add-product-form__on-sale-txt {
+.on-sale-txt {
   margin: 0;
   font-size: 14px;
 }
-.add-product-form__option-btns-container {
+.option-btns-container {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
 }
-.add-product-form__option-btn-container {
+.option-btn-container {
   flex: 0 0 50%;
   box-sizing: border-box;
 }
-.add-product-form__option-btn-container.left,
-.add-product-form__sale-date.left {
+.option-btn-container.left,
+.sale-date.left {
   padding-right: 3px;
 }
-.add-product-form__option-btn-container.right,
-.add-product-form__sale-date.right {
+.option-btn-container.right,
+.sale-date.right {
   padding-left: 3px;
 }
-.add-product-form__add-option-btn,
-.add-product-form__remove-option-btn {
+.add-option-btn,
+.remove-option-btn {
   font-size: 17px;
   color: white;
   cursor: pointer;
@@ -324,15 +319,15 @@ export default {
   padding-top: 2px;
   padding-bottom: 2px;
 }
-.add-product-form__add-option-btn {
+.add-option-btn {
   background-color: green;
   border: 2px solid darkgreen;
 }
-.add-product-form__remove-option-btn {
+.remove-option-btn {
   background-color: #b90e0e;
   border: 2px solid darkred;
 }
-.add-product-form__submit-btn {
+.submit-btn {
   background-color: green;
   font-size: 1.4em;
   color: white;
@@ -351,17 +346,17 @@ export default {
 .disabled:hover {
   background-color: grey;
 }
-.add-product-form__submit-btn:hover {
+.submit-btn:hover {
   background-color: darkgreen;
 }
-.add-product-form__sale-dates {
+.sale-dates {
   display: flex;
 }
-.add-product-form__sale-date {
+.sale-date {
   flex: 0 0 50%;
   box-sizing: border-box;
 }
-.add-product-form__invalid-txt {
+.invalid-txt {
   color: #c00;
   margin-top: 5px;
   margin-bottom: 0;

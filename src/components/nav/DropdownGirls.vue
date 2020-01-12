@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props: ["changeRoute", "navDropdown"]
+  props: ["reRoute", "navDropdown"]
 };
 </script>
 

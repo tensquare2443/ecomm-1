@@ -4,19 +4,27 @@
       <h2 class="admin-nav__brand sitebrand">Brand</h2>
     </div>
     <div>
-      <button
-        @click="changeRoute('/admin/add-product')"
+      <!-- <button
+        @click="reRoute('/admin/add-product')"
         class="admin-nav__add-product"
       >
         Add Product
-      </button>
+      </button> -->
+      <router-link
+        to="/admin/add-product"
+        @click.native="reRoute('/admin/add-product')"
+      >
+        <button class="admin-nav__add-product">
+          Add Product
+        </button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["changeRoute"]
+  props: ["reRoute"]
 };
 </script>
 

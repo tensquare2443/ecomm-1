@@ -1,14 +1,17 @@
 <template>
   <h3 class="nav__dropdown-title">
-    <span @click="changeRoute(route)" class="nav__dropdown-title-link">
+    <span @click="initiateGetProducts(route)" class="nav__dropdown-title-link">
       {{ btnTxt }}
     </span>
   </h3>
 </template>
 
 <script>
+import initiateGetProducts from "../../functions/initiateGetProducts";
+
 export default {
-  props: ["changeRoute", "route", "btnTxt"]
+  props: ["reRoute", "route", "btnTxt", "getProducts"],
+  methods: { initiateGetProducts }
 };
 </script>
 
@@ -20,6 +23,8 @@ export default {
 }
 .nav__dropdown-title-link {
   cursor: pointer;
+  text-decoration: none;
+  color: #333;
 }
 .nav__dropdown-title-link:hover {
   color: #313190;
