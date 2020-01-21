@@ -1,10 +1,11 @@
 <template>
   <div>
     <Nav
-      :reRoute="reRoute"
       :toggleDropdown="toggleDropdown"
       :navDropdown="navDropdown"
       :getProducts="getProducts"
+      :setNavData="setNavData"
+      :navData="navData"
     />
     <div class="home">
       <h2 style="text-align: center;">App Homepage</h2>
@@ -22,7 +23,13 @@ import Nav from "../components/nav/Nav";
 
 export default {
   name: "Home",
-  props: ["reRoute", "toggleDropdown", "navDropdown", "getProducts"],
+  props: [
+    "toggleDropdown",
+    "navDropdown",
+    "getProducts",
+    "navData",
+    "setNavData"
+  ],
   components: {
     Nav
   }

@@ -60,8 +60,12 @@ export default function(e) {
     this.addProductForm.name.invalidity = false;
   }
 
-  if (this.addProductForm.price.value === "" || this.addProductForm.price.value === 0) {
-    this.addProductForm.price.invalidity = "Please enter a product price.";
+  if (
+    this.addProductForm.price.value === "" ||
+    this.addProductForm.price.value <= 0
+  ) {
+    this.addProductForm.price.invalidity =
+      "Please enter a valid product price.";
     formIsValid = false;
   } else if (isNaN(this.addProductForm.price.value)) {
     this.addProductForm.price.invalidity =
@@ -180,48 +184,6 @@ export default function(e) {
     }
   });
 
-  // if (this.addProductForm.sale) {
-  //   if (
-  //     this.addProductForm.saleDetails.start.value === "" &&
-  //     this.addProductForm.saleDetails.end.value === ""
-  //   ) {
-  //     this.addProductForm.sale = false;
-  //     this.addProductForm.saleDetails = {
-  //       start: { value: "", invalidity: false },
-  //       end: { value: "", invalidity: false }
-  //     };
-  //   } else {
-  //     if (
-  //       this.addProductForm.saleDetails.start.value === "" ||
-  //       new Date(this.addProductForm.saleDetails.start.value).toString() ===
-  //         "Invalid Date"
-  //     ) {
-  //       this.addProductForm.saleDetails.start.invalidity =
-  //         "Please enter a valid start date.";
-  //       formIsValid = false;
-  //     } else {
-  //       this.addProductForm.saleDetails.start.invalidity = false;
-  //     }
-
-  //     if (
-  //       this.addProductForm.saleDetails.end.value === "" ||
-  //       new Date(this.addProductForm.saleDetails.end.value).toString() ===
-  //         "Invalid Date"
-  //     ) {
-  //       this.addProductForm.saleDetails.end.invalidity =
-  //         "Please enter a valid end date.";
-  //       formIsValid = false;
-  //     } else {
-  //       this.addProductForm.saleDetails.end.invalidity = false;
-  //     }
-  //   }
-  // } else {
-  //   this.addProductForm.saleDetails = {
-  //     start: { value: "", invalidity: false },
-  //     end: { value: "", invalidity: false }
-  //   };
-  // }
-
   if (this.addProductForm.tags.value) {
     if (
       this.addProductForm.tags.value.replace(/[^a-zA-Z0-9\-\,\s]/g, "") !==
@@ -239,5 +201,8 @@ export default function(e) {
 
   if (formIsValid) {
     this.navigateApf(2, 1);
+    this.addProductForm.pageInvalidities[1] = false;
+  } else {
+    this.addProductForm.pageInvalidities[1] = "At least one error exists above.";
   }
 }

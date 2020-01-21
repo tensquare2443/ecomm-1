@@ -67,5 +67,8 @@ export default function(e) {
 
   if (pageThreeValidity) {
     this.navigateApf(4, 3);
+    this.addProductForm.pageInvalidities[3] = false;
+  } else {
+    this.addProductForm.pageInvalidities[3] = "At least one error exists above.";
   }
 }

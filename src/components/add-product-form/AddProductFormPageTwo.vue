@@ -2,7 +2,9 @@
   <div class="container">
     <div class="breadcrumbs">
       <p class="breadcrumbs__txt">
-        <span @click="navigateApf(1, 2)" class="breadcrumbs__link">General Details</span>
+        <span @click="navigateApf(1, 2)" class="breadcrumbs__link"
+          >General Details</span
+        >
         <span> > </span>
         <span>Stock Details</span>
       </p>
@@ -41,13 +43,13 @@
               />
             </div>
           </div>
-          <p
-            v-if="optionCombo.inStock.invalidity"
-            class="input-error-txt"
-          >
+          <p v-if="optionCombo.inStock.invalidity" class="input-error-txt">
             {{ optionCombo.inStock.invalidity }}
           </p>
         </div>
+        <p v-if="addProductForm.pageInvalidities[2]" class="invalid-pg-txt">
+          {{ addProductForm.pageInvalidities[2] }}
+        </p>
         <button class="submit-btn" type="submit">Next</button>
       </form>
     </div>
@@ -56,11 +58,10 @@
 
 <script>
 export default {
-  props: [
-    "addProductForm",
-    "apfPageTwoSubmit",
-    "navigateApf"
-  ]
+  props: ["addProductForm", "apfPageTwoSubmit", "navigateApf"],
+  mounted() {
+    document.querySelector(".admin__content").scrollTop = 0;
+  }
 };
 </script>
 
@@ -191,5 +192,9 @@ export default {
 }
 .invalid-input {
   border: 1px solid #c00;
+}
+.invalid-pg-txt {
+  color: #c00;
+  text-align: center;
 }
 </style>

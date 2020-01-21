@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AdminWrapper :adminSubRoute="adminSubRoute" :reRoute="reRoute">
+    <AdminWrapper :editProductForm="editProductForm">
       <Loading v-if="authorizingUser" />
       <div v-else>
         <AddProductFormPageOne
@@ -54,8 +54,6 @@ export default {
     Loading
   },
   props: [
-    "adminSubRoute",
-    "reRoute",
     "addProductForm",
     "apfPageOneSubmit",
     "apfPageTwoSubmit",
@@ -69,7 +67,8 @@ export default {
     "apfDeleteImage",
     "resetDataValues",
     "checkAuthToken",
-    "authorizingUser"
+    "authorizingUser",
+    "editProductForm"
   ],
   created() {
     console.log("admin add product created");

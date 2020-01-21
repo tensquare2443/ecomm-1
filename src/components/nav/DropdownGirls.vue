@@ -1,15 +1,71 @@
 <template>
   <div
     class="nav__dropdown"
-    :class="{ 'nav__dropdown-status': navDropdown === 'girls' }"
+    :class="{
+      'nav__dropdown-status': navDropdown === 'girls' && !navData.dropdownLgOff
+    }"
   >
-    <h3 style="text-align: center;">Girls Dropdown</h3>
+    <div class="nav__dropdown-content">
+      <div class="nav__dropdown-column--left">
+        <TitleLink
+          :getProducts="getProducts"
+          :route="'/products/girls/tops'"
+          :btnTxt="'Tops'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/girls/tops/shirts'"
+          :btnTxt="'Shirts'"
+        />
+        <TitleLink
+          :getProducts="getProducts"
+          :route="'/products/girls/dresses'"
+          :btnTxt="'Dresses'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/girls/dresses'"
+          :btnTxt="'All Dresses'"
+        />
+      </div>
+      <div class="nav__dropdown-column--right">
+        <TitleLink
+          :getProducts="getProducts"
+          :route="'/products/girls/bottoms'"
+          :btnTxt="'Bottoms'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/girls/bottoms/pants'"
+          :btnTxt="'Pants'"
+        />
+        <TitleLink
+          :getProducts="getProducts"
+          :route="'/products/girls/accessories'"
+          :btnTxt="'Accessories'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/girls/accessories/hats'"
+          :btnTxt="'Hats'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/girls/accessories/gloves'"
+          :btnTxt="'Gloves'"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import TitleLink from "./TitleLink";
+import TxtLink from "./TxtLink";
+
 export default {
-  props: ["reRoute", "navDropdown"]
+  props: ["navDropdown", "getProducts", "navData"],
+  components: { TitleLink, TxtLink }
 };
 </script>
 

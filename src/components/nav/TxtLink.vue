@@ -10,7 +10,7 @@
 import initiateGetProducts from "../../functions/initiateGetProducts";
 
 export default {
-  props: ["reRoute", "route", "btnTxt", "getProducts"],
+  props: ["route", "btnTxt", "getProducts"],
   methods: { initiateGetProducts }
 };
 </script>

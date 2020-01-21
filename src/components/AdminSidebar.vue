@@ -1,19 +1,11 @@
 <template>
   <div class="admin-sidebar">
-    <!-- <div
-      @click="reRoute('/admin/products')"
-      :class="{ active: adminSubRoute === 'products' }"
-      class="admin-sidebar__item"
-    >
-      <p class="admin-sidebar__item-txt">Products</p>
-    </div> -->
     <router-link
       to="/admin/products"
-      @click.native="reRoute('/admin/products')"
       class="admin-sidebar__item-link"
     >
       <div
-        :class="{ active: adminSubRoute === 'products' }"
+        :class="{ active: getAdminSubRoute() === 'products' }"
         class="admin-sidebar__item"
       >
         <p class="admin-sidebar__item-txt">Products</p>
@@ -24,7 +16,11 @@
 
 <script>
 export default {
-  props: ["adminSubRoute", "reRoute"]
+  methods: {
+    getAdminSubRoute: function() {
+      return this.$route.path.split("/")[2]
+    }
+  }
 };
 </script>
 

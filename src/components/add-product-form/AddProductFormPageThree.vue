@@ -2,9 +2,13 @@
   <div>
     <div class="breadcrumbs">
       <p class="breadcrumbs__txt">
-        <span @click="navigateApf(1, 3)" class="breadcrumbs__link">General Details</span>
+        <span @click="navigateApf(1, 3)" class="breadcrumbs__link"
+          >General Details</span
+        >
         <span> > </span>
-        <span @click="navigateApf(2, 3)" class="breadcrumbs__link">Stock Details</span>
+        <span @click="navigateApf(2, 3)" class="breadcrumbs__link"
+          >Stock Details</span
+        >
         <span> > </span>
         <span>Images</span>
       </p>
@@ -45,7 +49,7 @@
               :class="{
                 'actively-dragging': colorImgs.thumbnailImg.dragOver,
                 'invalid-img-upload-input': colorImgs.thumbnailImg.invalidity
-                }"
+              }"
               class="thumbnail-img-label"
               @dragover="apfFileInputDragOn"
               @dragenter="apfFileInputDragOn"
@@ -84,7 +88,7 @@
             <div class="uploaded-img-btn-container">
               <button
                 @click="apfDeleteImage"
-                :data-id="`${colorImgs.color} thumbnailImg`"
+                :data-id="`${colorImgs.color}_thumbnailImg`"
                 class="uploaded-img-btn"
                 type="button"
               >
@@ -114,7 +118,7 @@
                       addProductForm.images[index].mainImgs[mainImgIndex]
                         .ranking.value
                     "
-                    :class="{'invalid-txt-input': mainImg.ranking.invalidity}"
+                    :class="{ 'invalid-txt-input': mainImg.ranking.invalidity }"
                     class="main-img-ranking-input"
                     type="text"
                   />
@@ -139,7 +143,7 @@
                   :class="{
                     'actively-dragging': mainImg.dragOver,
                     'invalid-img-upload-input': mainImg.file.invalidity
-                    }"
+                  }"
                   class="main-img-label"
                   @dragover="apfFileInputDragOn"
                   @dragenter="apfFileInputDragOn"
@@ -181,7 +185,7 @@
                 <div class="uploaded-img-btn-container">
                   <button
                     @click="apfDeleteImage"
-                    :data-id="`${colorImgs.color} mainImg ${mainImgIndex}`"
+                    :data-id="`${colorImgs.color}_mainImg_${mainImgIndex}`"
                     class="uploaded-img-btn"
                     type="button"
                   >
@@ -224,6 +228,9 @@
             </div>
           </div>
         </div>
+        <p v-if="addProductForm.pageInvalidities[3]" class="invalid-pg-txt">
+          {{ addProductForm.pageInvalidities[3] }}
+        </p>
         <button class="submit-btn" type="submit">Next</button>
       </form>
     </div>
@@ -242,8 +249,7 @@ export default {
     "apfDeleteImage"
   ],
   mounted() {
-    console.log(`this.addProductForm:`);
-    console.log(JSON.stringify(this.addProductForm));
+    document.querySelector(".admin__content").scrollTop = 0;
   }
 };
 </script>
@@ -463,5 +469,9 @@ export default {
 }
 .invalid-txt-input {
   border: 1px solid #c00;
+}
+.invalid-pg-txt {
+  color: #c00;
+  text-align: center;
 }
 </style>

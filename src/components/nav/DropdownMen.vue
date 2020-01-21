@@ -1,108 +1,68 @@
 <template>
   <div
     class="nav__dropdown"
-    :class="{ 'nav__dropdown-status': navDropdown === 'men' }"
+    :class="{
+      'nav__dropdown-status': navDropdown === 'men' && !navData.dropdownLgOff
+    }"
   >
     <div class="nav__dropdown-content">
       <div class="nav__dropdown-column--left">
-        <h3 class="nav__dropdown-title">Featured</h3>
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/men'"
-          :btnTxt="'New Arrivals'"
-        />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/men'"
-          :btnTxt="'Sale'"
-        />
         <TitleLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/tops'"
           :btnTxt="'Tops'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/tops/t-shirts'"
           :btnTxt="'T-Shirts'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/tops/polos'"
           :btnTxt="'Polos'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/tops/button-downs'"
           :btnTxt="'Button-Downs'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/tops/sweaters'"
           :btnTxt="'Sweaters'"
         />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/men/tops/sweatshirts'"
-          :btnTxt="'Sweatshirts'"
-        />
       </div>
       <div class="nav__dropdown-column--right">
         <TitleLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/bottoms'"
           :btnTxt="'Bottoms'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/bottoms/khakis'"
           :btnTxt="'Khakis'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/bottoms/jeans'"
           :btnTxt="'Jeans'"
         />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/men/bottoms/sweatpants'"
-          :btnTxt="'Sweatpants'"
-        />
         <TitleLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/accessories'"
           :btnTxt="'Accessories'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/accessories/hats'"
           :btnTxt="'Hats'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/men/accessories/gloves'"
           :btnTxt="'Gloves'"
-        />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/men/accessories/scarves'"
-          :btnTxt="'Scarves'"
         />
       </div>
     </div>
@@ -114,7 +74,7 @@ import TitleLink from "./TitleLink";
 import TxtLink from "./TxtLink";
 
 export default {
-  props: ["reRoute", "navDropdown", "getProducts"],
+  props: ["navDropdown", "getProducts", "navData"],
   components: {
     TitleLink,
     TxtLink

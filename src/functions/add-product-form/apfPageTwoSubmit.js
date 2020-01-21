@@ -22,52 +22,9 @@ export default function(e) {
   );
 
   if (pageTwoValidity) {
-    // let colors = this.addProductForm.options[0].values.value.split(",");
-
-    // const setApfImages = colors => colors.map(color => {
-    //   return {
-    //     color,
-    //     thumbnailImg: {
-    //       file: "",
-    //       name: "",
-    //       invalidity: false,
-    //       dragOver: false
-    //     },
-    //     mainImgs: [
-    //       {
-    //         file: { value: "", invalidity: "" },
-    //         name: "",
-    //         ranking: { value: "", invalidity: "" },
-    //         invalidity: false,
-    //         dragOver: false
-    //       }
-    //     ]
-    //   };
-    // });
-
-    // this.addProductForm.images = setApfImages(colors);
-
-    // this.addProductForm.images = colors.map(color => {
-    //   return {
-    //     color,
-    //     thumbnailImg: {
-    //       file: "",
-    //       name: "",
-    //       invalidity: false,
-    //       dragOver: false
-    //     },
-    //     mainImgs: [
-    //       {
-    //         file: { value: "", invalidity: "" },
-    //         name: "",
-    //         ranking: { value: "", invalidity: "" },
-    //         invalidity: false,
-    //         dragOver: false
-    //       }
-    //     ]
-    //   };
-    // });
-
     this.navigateApf(3, 2);
+    this.addProductForm.pageInvalidities[2] = false;
+  } else {
+    this.addProductForm.pageInvalidities[2] = "At least one error exists above.";
   }
 }

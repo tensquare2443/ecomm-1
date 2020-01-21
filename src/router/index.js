@@ -7,6 +7,8 @@ import AdminProduct from "@/routes/AdminProduct";
 import AddProduct from "@/routes/AddProduct";
 import SignIn from "@/routes/SignIn";
 import Product from "@/routes/Product";
+import Cart from "@/routes/Cart";
+import Checkout from "@/routes/Checkout";
 
 Vue.use(Router);
 
@@ -27,6 +29,18 @@ export default new Router({
       path: "/product/*",
       name: "Product",
       component: Product,
+      props: true
+    },
+    {
+      path: "/cart",
+      name: "Cart",
+      component: Cart,
+      props: true
+    },
+    {
+      path: "/checkout",
+      name: "Checkout",
+      component: Checkout,
       props: true
     },
     {
@@ -52,12 +66,12 @@ export default new Router({
       name: "SignIn",
       component: SignIn,
       props: true
-    }//,
-    // {
-    //   path: "/admin/*",
-    //   name: "AdminProducts",
-    //   component: AdminProducts,
-    //   props: true
-    // }
+    },
+    {
+      path: "/admin/*",
+      name: "AdminProducts",
+      component: AdminProducts,
+      props: true
+    }
   ]
 });

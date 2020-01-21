@@ -1,14 +1,26 @@
-import { addProductFormDefault } from "./appDataDefaults";
+import {
+  addProductFormDefault,
+  editProductFormDefault
+} from "./appDataDefaults";
 
 const cloneDeep = require("clone-deep");
 
 export default function() {
   return {
     products: [],
+    productsData: false,
     productsLoading: false,
     product: false,
+    productData: false,
     productLoading: false,
+    cartData: {
+      products: []
+    },
     authorizingUser: false,
+    navData: {
+      dropdownSm: false,
+      dropdownLgOff: false
+    },
     navDropdown: false,
     user: false,
     signInForm: {
@@ -25,20 +37,6 @@ export default function() {
     },
     addProductForm: cloneDeep(addProductFormDefault),
     adminSubRoute: false,
-    editProductForm: {
-      attributeEditing: false,
-      vModelTest: 'myvmod',
-      name: {
-        original: "",
-        new: "",
-        invalidity: false
-      },
-      location: {
-        original: "",
-        new: "",
-        invalidity: false
-      },
-      attributesEdited: []
-    }
+    editProductForm: cloneDeep(editProductFormDefault)
   };
 }

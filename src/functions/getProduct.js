@@ -1,13 +1,15 @@
 import { apiKey, getProductEndpoint } from "../appVars";
+import setProductData from "./setProductData";
 
-export default function(productPath) {
+const cloneDeep = require("clone-deep");
+
+export default function(productPath, updateProductData) {
   if (productPath.includes("/admin/product/")) {
-    console.log("yesss")
     productPath = productPath.replace("/admin/product/", "").split("/");
   } else {
     productPath = productPath.replace("/product/", "").split("/");
   }
-  
+
   productPath = productPath
     .map((section, index) => {
       if (index === productPath.length - 1) {
@@ -32,8 +34,20 @@ export default function(productPath) {
   })
     .then(res => res.json())
     .then(json => {
-      console.log(json);
-      this.product = json["Item"];
+      const product = json["Item"];
+      this.product = product;
+
+      if (updateProductData) {
+        // this.productData = setProductData("INITIALIZE", {
+        //   product: cloneDeep(product),
+        //   color: product.images["L"][0]["M"].color["S"]
+        // });
+        this.setProductData("INITIALIZE", {
+          product: cloneDeep(product),
+          color: product.images["L"][0]["M"].color["S"]
+        });
+      }
+
       this.productLoading = false;
     })
     .catch(e => {

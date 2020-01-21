@@ -1,8 +1,6 @@
 <template>
-  <div class="admin">
-    <AdminNav :reRoute="reRoute" />
-    <div class="admin__grid">
-      <AdminSidebar :adminSubRoute="adminSubRoute" :reRoute="reRoute" />
+  <div>
+    <AdminWrapper :editProductForm="editProductForm">
       <Loading v-if="authorizingUser || products.length === 0" />
       <div v-else class="content">
         <h1 class="title">My Products</h1>
@@ -24,7 +22,7 @@
               <p class="table-txt header-txt product-price-txt">Price</p>
             </div>
             <div class="table-txt-container">
-              <p class="table-txt header-txt"></p>
+              <p class="table-txt header-txt">&nbsp;</p>
             </div>
           </div>
           <div
@@ -55,7 +53,6 @@
               </p>
             </div>
             <div class="edit-product-symbol-container">
-              <!-- <router-link :to="`/admin/product/${getProductId(product.productPath['S'])}`"> -->
               <router-link
                 :to="
                   `/admin/product/${formatProductPath(
@@ -81,106 +78,65 @@
           </div>
         </div>
       </div>
-    </div>
+    </AdminWrapper>
   </div>
 </template>
 
 <script>
 import AdminNav from "../components/AdminNav";
 import AdminSidebar from "../components/AdminSidebar";
+import AdminWrapper from "../components/AdminWrapper";
 import Loading from "../components/Loading";
+
+import {
+  getDepartment,
+  getPath,
+  getCreationDate,
+  getProductId,
+  formatProductPath
+} from "../functions/general-helper-functions";
 
 export default {
   props: [
-    "adminSubRoute",
     "reRoute",
     "checkAuthToken",
     "authorizingUser",
     "getProducts",
-    "products"
+    "products",
+    "resetDataValues",
+    "editProductForm"
   ],
   components: {
     AdminNav,
     AdminSidebar,
+    AdminWrapper,
     Loading
   },
   methods: {
-    getDepartment: function(productPath) {
-      let department = productPath
-        .split("_")[1]
-        .replace("[", "")
-        .replace("]", "");
-
-      return department
-        .split("")
-        .map((letter, index) => {
-          if (index === 0) {
-            return letter.toUpperCase();
-          } else return letter;
-        })
-        .join("");
-    },
-    getPath: function(productPath) {
-      productPath = productPath
-        .replace("[]_", "")
-        .split("_")
-        .map(pathSection => pathSection.replace(/[\][#]/g, ""));
-
-      productPath = productPath.slice(0, productPath.length - 1);
-
-      return productPath.join("/");
-    },
-    getCreationDate: function(date) {
-      const months = {
-        Jan: "01",
-        Feb: "02",
-        Mar: "03",
-        Apr: "04",
-        May: "05",
-        Jun: "06",
-        Jul: "07",
-        Aug: "08",
-        Sep: "09",
-        Oct: "10",
-        Nov: "11",
-        Dec: "12"
-      };
-      const dateElements = new Date(date).toString().split(" ");
-      const month = months[dateElements[1]];
-      const day = dateElements[2];
-      const year = dateElements[3];
-
-      return `${month}/${day}/${year}`;
-    },
-    getProductId: function(productPath) {
-      return productPath.split("#")[1];
-    },
-    formatProductPath: function(productPath) {
-      return productPath
-        .replace("[]_", "")
-        .split("_")
-        .map(pathSection => pathSection.replace(/[\][#]/g, ""))
-        .join("/");
-    }
+    getDepartment,
+    getPath,
+    getCreationDate,
+    getProductId,
+    formatProductPath
   },
   created() {
-    console.log("admin products created");
-
     if (this.$route.path !== "/admin/products") {
       this.$router.push("/admin/products");
     }
 
     this.checkAuthToken();
     this.getProducts();
+  },
+  mounted() {
+    document.querySelector(".admin__content").scrollTop = 0;
+  },
+  beforeDestroy() {
+    this.resetDataValues(["products"]);
   }
 };
 </script>
 
 <style scoped>
-.admin__grid {
-  display: grid;
-  grid-template-columns: 220px auto;
-}
 .content {
   padding-left: 15px;
   padding-right: 15px;
@@ -195,14 +151,15 @@ export default {
   border: 2px solid #ddd;
   border-radius: 3px;
   box-sizing: border-box;
-  margin: auto;
+  margin: auto auto 30px auto;
   padding-left: 15px;
   padding-right: 15px;
 }
 .table-header,
 .table-row {
   display: grid;
-  grid-template-columns: 15fr 7fr 15fr 6fr 4fr 3fr;
+  grid-template-columns: 15fr 9fr 15fr 6fr 4fr 3fr;
+  grid-gap: 5px;
 }
 .divider {
   border-bottom: 1px solid #ddd;

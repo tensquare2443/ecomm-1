@@ -229,14 +229,19 @@
         {{ addProductForm.tags.invalidity }}
       </p>
     </div>
-
+    <p v-if="addProductForm.pageInvalidities[1]" class="invalid-pg-txt">
+      {{ addProductForm.pageInvalidities[1] }}
+    </p>
     <button class="submit-btn" type="submit">Next</button>
   </form>
 </template>
 
 <script>
 export default {
-  props: ["addProductForm", "apfPageOneSubmit", "editApfOptionsLength"]
+  props: ["addProductForm", "apfPageOneSubmit", "editApfOptionsLength"],
+  mounted() {
+    document.querySelector(".admin__content").scrollTop = 0;
+  }
 };
 </script>
 
@@ -364,5 +369,9 @@ export default {
 }
 .invalid-input {
   border: 1px solid #c00;
+}
+.invalid-pg-txt {
+  color: #c00;
+  text-align: center;
 }
 </style>

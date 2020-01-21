@@ -1,12 +1,15 @@
 <template>
   <div>
-    <AdminWrapper :adminSubRoute="adminSubRoute" :reRoute="reRoute">
+    <AdminWrapper :editProductForm="editProductForm">
       <Loading v-if="authorizingUser || !product" />
       <EditProductMainForm
         v-else-if="!editProductForm.attributeEditing"
         :product="product"
         :editProductForm="editProductForm"
         :epfEditAttribute="epfEditAttribute"
+        :epfCancelEdits="epfCancelEdits"
+        :epfSubmitEdits="epfSubmitEdits"
+        :epfChangeDeleteStatus="epfChangeDeleteStatus"
       />
       <EditProductAttribute
         v-else
@@ -52,14 +55,16 @@ import Loading from "../components/Loading";
 
 export default {
   props: [
-    "reRoute",
-    "adminSubRoute",
     "checkAuthToken",
     "authorizingUser",
     "editProduct",
     "product",
     "editProductForm",
-    "epfEditAttribute"
+    "epfEditAttribute",
+    "epfCancelEdits",
+    "epfSubmitEdits",
+    "resetDataValues",
+    "epfChangeDeleteStatus"
   ],
   components: {
     AdminWrapper,
@@ -70,6 +75,13 @@ export default {
   created() {
     this.checkAuthToken();
     this.editProduct(this.$route.path);
+  },
+  beforeDestroy() {
+    console.log("AdminProduct beforedestroy");
+    this.resetDataValues([
+      "editProductForm",
+      "product"
+    ])
   }
 };
 </script>

@@ -1,11 +1,11 @@
 import { apiKey, checkAuthTokenEndpoint } from "../appVars";
 
 export default function() {
-  console.log("checking auth token");
+  // console.log("checking auth token");
   this.authorizingUser = true;
 
-  console.log(`ss ecommAppUsername: ${sessionStorage.ecommAppUsername}`);
-  console.log(`ss ecommAppToken: ${sessionStorage.ecommAppToken}`);
+  // console.log(`ss ecommAppUsername: ${sessionStorage.ecommAppUsername}`);
+  // console.log(`ss ecommAppToken: ${sessionStorage.ecommAppToken}`);
 
   fetch(checkAuthTokenEndpoint, {
     headers: {
@@ -16,7 +16,7 @@ export default function() {
   })
     .then(res => res.json())
     .then(json => {
-      console.log(json);
+      // console.log(json);
       if (
         json.name === "TokenExpiredError" ||
         json === "User not found" ||

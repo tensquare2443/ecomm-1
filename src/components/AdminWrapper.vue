@@ -1,9 +1,16 @@
 <template>
   <div>
-    <AdminNav :reRoute="reRoute" />
+    <AdminNav />
     <div class="admin__grid">
-      <AdminSidebar :adminSubRoute="adminSubRoute" :reRoute="reRoute" />
-      <div class="admin__content">
+      <AdminSidebar />
+      <div
+        :class="{
+          'modal-open':
+            editProductForm.deleteStatus === 'confirm' ||
+            editProductForm.deleteStatus === 'deleting'
+        }"
+        class="admin__content"
+      >
         <slot></slot>
       </div>
     </div>
@@ -19,7 +26,7 @@ export default {
     AdminNav,
     AdminSidebar
   },
-  props: ["reRoute", "adminSubRoute"]
+  props: ["editProductForm"]
 };
 </script>
 
@@ -33,6 +40,9 @@ export default {
   overflow-y: scroll;
   padding-left: 15px;
   padding-right: 15px;
+  position: relative;
 }
-
+.modal-open {
+  overflow: hidden;
+}
 </style>

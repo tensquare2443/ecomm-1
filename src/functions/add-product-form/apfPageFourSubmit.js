@@ -1,16 +1,10 @@
-import { apiKey, addProductEndpoint } from "../../appVars.js";
+import { apiKey, addProductEndpoint, s3Bucket } from "../../appVars.js";
 const AWS = require("aws-sdk");
 
 export default function(e) {
   e.preventDefault();
 
-  console.log(`apf: ${this.addProductForm}`);
-  // return;
-
-  //must upload images to S3 first, ... then get urls and edit addProductForm, then upload that to Dynamo.
-
-  // const AWS = require("aws-sdk");
-  const bucket = "ecomm-app-32";
+  // const bucket = s3Bucket;
   const region = "us-east-1";
   const poolId = "us-east-1:6a47fbfb-8228-4d96-9d80-dee5341b9967";
 
@@ -23,7 +17,7 @@ export default function(e) {
 
   const s3 = new AWS.S3({
     apiVersion: "2006-03-01",
-    params: { Bucket: bucket }
+    params: { Bucket: s3Bucket }
   });
   const cloneDeep = require("clone-deep");
   const colorImgs = cloneDeep(this.addProductForm.images);
@@ -43,7 +37,6 @@ export default function(e) {
   let imgUrls = {};
 
   const addUrlsToApfData = (imgUrls, apfData) => {
-    // console.log(apfData);
     for (var i = 0; i < Object.keys(imgUrls).length; i++) {
       let color = Object.keys(imgUrls)[i].split("_")[0];
       let imgType = Object.keys(imgUrls)[i].split("_")[1];
@@ -165,7 +158,9 @@ export default function(e) {
     apfData = addUrlsToApfData(imgUrls, apfData);
     apfData = formatDbItem(apfData, productId);
 
-    console.log(apfData);
+    // console.log(`APFDATA:`);
+    // console.log(apfData);
+    // return;
 
     fetch(addProductEndpoint, {
       method: "POST",
@@ -176,12 +171,12 @@ export default function(e) {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(`json: ${JSON.stringify(json)}`);
+        // console.log(`json: ${JSON.stringify(json)}`);
         this.addProductForm.submitting = false;
         this.$router.push("/admin/products");
       })
       .catch(e => {
-        console.log(`e: ${e}`);
+        // console.log(`e: ${e}`);
         this.addProductForm.submitting = false;
       });
   };
@@ -205,11 +200,11 @@ export default function(e) {
         if (category === "mainImg") {
           imgUrls[
             `${color}_${category}_${index}`
-          ] = `https://ecomm-app-32.s3.amazonaws.com/${filePath}`;
+          ] = `https://${s3Bucket}.s3.amazonaws.com/${filePath}`;
         } else {
           imgUrls[
             `${color}_${category}`
-          ] = `https://ecomm-app-32.s3.amazonaws.com/${filePath}`;
+          ] = `https://${s3Bucket}.s3.amazonaws.com/${filePath}`;
         }
 
         // console.log(JSON.stringify(imgUrls));

@@ -1,7 +1,8 @@
 import { apiKey, getProductsEndpoint } from "../appVars.js";
+import { setProductsData } from "./general-helper-functions";
 
-export default function(route) {
-  console.log(`getProducts arg: ${route}`);
+export default function(route, updateProductsData) {
+  // console.log(`getProducts arg: ${route}`);
   this.toggleDropdown();
   this.productsLoading = true;
 
@@ -26,11 +27,13 @@ export default function(route) {
   })
     .then(response => response.json())
     .then(json => {
-      // console.log(json);
       const products = json["Items"];
       this.products = products;
-      // console.log(products);
       this.productsLoading = false;
+
+      if (updateProductsData) {
+        this.productsData = setProductsData(products);
+      }
     })
     .catch(e => {
       console.log(e);

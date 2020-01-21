@@ -1,51 +1,59 @@
 <template>
   <div class="nav__categories">
-    <div
-      @click="changeRoute('/products')"
-      @mouseenter="toggleDropdown('sale')"
-      :class="{ 'nav__category--active': navDropdown === 'sale' }"
-      class="nav__category"
+    <router-link
+      @click.native="toggleDropdown(null, 'categoryClick')"
+      to="/products/men"
+      class="nav__category-link"
     >
-      <p class="nav__category-txt">Sale</p>
-    </div>
-    <div
-      @click="changeRoute('/products')"
-      @mouseenter="toggleDropdown('new')"
-      :class="{ 'nav__category--active': navDropdown === 'new' }"
-      class="nav__category"
-    >
-      <p class="nav__category-txt">New</p>
-    </div>
-    <router-link to="/products/men" class="nav__category-link">
       <div
-        @mouseenter="toggleDropdown('men')"
+        @click="getProducts('/products/men', 'update productsData')"
+        @mouseenter="toggleDropdown('men', 'mouseent')"
+        @mouseleave="toggleDropdown(null, 'categoryOff')"
         :class="{ 'nav__category--active': navDropdown === 'men' }"
         class="nav__category"
       >
         <p class="nav__category-txt">Men</p>
       </div>
     </router-link>
-    <router-link to="/products/women" class="nav__category-link">
+    <router-link
+      @click.native="toggleDropdown(null, 'categoryClick')"
+      to="/products/women"
+      class="nav__category-link"
+    >
       <div
+        @click="getProducts('/products/women', 'update productsData')"
         @mouseenter="toggleDropdown('women')"
+        @mouseleave="toggleDropdown(null, 'categoryOff')"
         :class="{ 'nav__category--active': navDropdown === 'women' }"
         class="nav__category"
       >
         <p class="nav__category-txt">Women</p>
       </div>
     </router-link>
-    <router-link to="/products/boys" class="nav__category-link">
+    <router-link
+      @click.native="toggleDropdown(null, 'categoryClick')"
+      to="/products/boys"
+      class="nav__category-link"
+    >
       <div
+        @click="getProducts('/products/boys', 'update productsData')"
         @mouseenter="toggleDropdown('boys')"
+        @mouseleave="toggleDropdown(null, 'categoryOff')"
         :class="{ 'nav__category--active': navDropdown === 'boys' }"
         class="nav__category"
       >
         <p class="nav__category-txt">Boys</p>
       </div>
     </router-link>
-    <router-link to="/products/girls" class="nav__category-link">
+    <router-link
+      @click.native="toggleDropdown(null, 'categoryClick')"
+      to="/products/girls"
+      class="nav__category-link"
+    >
       <div
+        @click="getProducts('/products/girls', 'update productsData')"
         @mouseenter="toggleDropdown('girls')"
+        @mouseleave="toggleDropdown(null, 'categoryOff')"
         :class="{ 'nav__category--active': navDropdown === 'girls' }"
         class="nav__category"
       >
@@ -57,7 +65,13 @@
 
 <script>
 export default {
-  props: ["changeRoute", "toggleDropdown", "navDropdown"]
+  props: [
+    "changeRoute",
+    "toggleDropdown",
+    "navDropdown",
+    "navData",
+    "getProducts"
+  ]
 };
 </script>
 
@@ -72,7 +86,7 @@ export default {
 .nav__category {
   padding: 14px 28px 11px 28px;
   cursor: pointer;
-  border-bottom: 3px solid #f5f5f5;
+  border-bottom: 3px solid transparent;
   transition: border-bottom 0.2s;
 }
 .nav__category:hover {

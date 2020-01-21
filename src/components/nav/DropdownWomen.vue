@@ -1,117 +1,65 @@
 <template>
   <div
     class="nav__dropdown"
-    :class="{ 'nav__dropdown-status': navDropdown === 'women' }"
+    :class="{
+      'nav__dropdown-status': navDropdown === 'women' && !navData.dropdownLgOff
+    }"
   >
     <div class="nav__dropdown-content">
       <div class="nav__dropdown-column--left">
-        <h3 class="nav__dropdown-title">Featured</h3>
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women'"
-          :btnTxt="'New Arrivals'"
-        />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women'"
-          :btnTxt="'Sale'"
-        />
         <TitleLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/women/tops'"
           :btnTxt="'Tops'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/women/tops/shirts'"
           :btnTxt="'Shirts'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/women/tops/button-downs'"
           :btnTxt="'Button-Downs'"
         />
         <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women/tops/blouses'"
-          :btnTxt="'Blouses'"
-        />
-        <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/women/tops/sweaters'"
           :btnTxt="'Sweaters'"
         />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women/tops/sweatshirts'"
-          :btnTxt="'Sweatshirts'"
-        />
-      </div>
-      <div class="nav__dropdown-column--right">
         <TitleLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women/bottoms'"
-          :btnTxt="'Bottoms'"
-        />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women/bottoms/pants'"
-          :btnTxt="'Pants'"
-        />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women/bottoms/skirts'"
-          :btnTxt="'Skirts'"
-        />
-        <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women/bottoms/leggings'"
-          :btnTxt="'Leggings'"
-        />
-        <TitleLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/women/dresses'"
           :btnTxt="'Dresses'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/women/dresses'"
           :btnTxt="'All Dresses'"
         />
+      </div>
+      <div class="nav__dropdown-column--right">
         <TitleLink
-          :reRoute="reRoute"
+          :getProducts="getProducts"
+          :route="'/products/women/bottoms'"
+          :btnTxt="'Bottoms'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/women/bottoms/pants'"
+          :btnTxt="'Pants'"
+        />
+        <TitleLink
           :getProducts="getProducts"
           :route="'/products/women/accessories'"
           :btnTxt="'Accessories'"
         />
         <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/women/accessories/hats'"
           :btnTxt="'Hats'"
         />
         <TxtLink
-          :reRoute="reRoute"
-          :getProducts="getProducts"
-          :route="'/products/women/accessories/scarves'"
-          :btnTxt="'Scarves'"
-        />
-        <TxtLink
-          :reRoute="reRoute"
           :getProducts="getProducts"
           :route="'/products/women/accessories/gloves'"
           :btnTxt="'Gloves'"
@@ -126,7 +74,7 @@ import TitleLink from "./TitleLink";
 import TxtLink from "./TxtLink";
 
 export default {
-  props: ["reRoute", "navDropdown", "getProducts"],
+  props: ["navDropdown", "getProducts", "navData"],
   components: {
     TitleLink,
     TxtLink

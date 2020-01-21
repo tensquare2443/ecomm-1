@@ -1,20 +1,48 @@
 <template>
   <div id="app">
+    <router-link to="/cart">
+      <div v-if="cartData.products.length > 0" class="cart">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            class="cart-btn"
+          >
+            <path
+              d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+              fill="black"
+            />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </div>
+        <div>
+          <p class="cart-txt">Cart</p>
+        </div>
+      </div>
+    </router-link>
     <router-view
       :products="products"
+      :productsData="productsData"
       :productsLoading="productsLoading"
+      :changeDisplayedProductColor="changeDisplayedProductColor"
       :getProducts="getProducts"
       :product="product"
+      :productData="productData"
       :productLoading="productLoading"
+      :cartData="cartData"
+      :setCartData="setCartData"
       :getProduct="getProduct"
-      :reRoute="reRoute"
+      :setProductData="setProductData"
       :authorizingUser="authorizingUser"
       :toggleDropdown="toggleDropdown"
+      :navData="navData"
+      :setNavData="setNavData"
       :navDropdown="navDropdown"
       :signInFormEdit="signInFormEdit"
       :signInFormSubmit="signInFormSubmit"
       :signInForm="signInForm"
-      :adminSubRoute="adminSubRoute"
       :addProductForm="addProductForm"
       :apfPageOneSubmit="apfPageOneSubmit"
       :apfPageTwoSubmit="apfPageTwoSubmit"
@@ -31,52 +59,48 @@
       :editProduct="editProduct"
       :editProductForm="editProductForm"
       :epfEditAttribute="epfEditAttribute"
+      :epfSubmitEdits="epfSubmitEdits"
+      :epfCancelEdits="epfCancelEdits"
+      :epfChangeDeleteStatus="epfChangeDeleteStatus"
     />
   </div>
 </template>
 
 <script>
 /*
-big todo:
-DONE -Add price to apf
-DONE -add date created to products in db
-DONE -Check tags and sale on apf
--Create images for uploading.
-DONE-Upload new prods, remove olds
-DONE? -Fix sign in form - Done? works sometimes?
-DONE -Create token check on admin routes
-DONE-Fix 'space in color' bug on APF
--Design product page
--Design products page
+imgs
+- size: 1040x1380
+- bg: #e8e8e8, rgb(232,232,232)
+
+default colors:
+- light denim: 7285e4
+- medium denim: 3b4eac
+- dark denim: 343f70
+- teal: 008080
+- yellow: 9c9212
+- navy blue: 000080
+*/
+
+/*
+todo:
+SOMEWHATDONE-Create images for uploading.
+DONE-signify selected color on thumbnail on products page
+-correctly toggle qty dropdown on product page
 -Design home page
--tokens often invalid. why?
-DONE-Redirect unsuccessful user auths
-- make 'brand' a btn on admin nav that goes to app homepage
--Notification on unsuccessful user auths?
--Redirect random admin routes to "admin/products"?
--Make apf go to top of page when user goes to next section of form
--Make decision on better showing user form errors on apf submission
--nav category click toggle dropdown
--Design checkout process, integrate stripe
-DONE -Create admin/products call
--Design admin/products page
--Remove unused code (such as reroute?)
--not getting all products when first on products route then fetches. /products/men/tops/button-downs > /products/men
--Make site fully responsive
--will need to make transaction table?
--secondary index for sale/new/etc.?
-DONE -actually redirect when token is bad
+-put mobile cart in nav dropdown, finish rest of mobile nav dropdown
+-sticky cart logo
+-S3 name location
+-remove console logs
+-Make tokens in local instead of sessionstorage. does this prevent double token changes?
+-responsify everything
 
 OTHER
-- delay on nav drops
-- get rid of hashtag in url?
-- go to part of form where error exists after validation
 - delete git from sub-functions in lambda folder
 - install npm in lambda folder?
 
 */
 import toggleDropdown from "./functions/toggleDropdown";
-import reRoute from "./functions/reRoute";
+import setNavData from "./functions/setNavData";
 import signInFormEdit from "./functions/sign-in-form/signInFormEdit";
 import signInFormSubmit from "./functions/sign-in-form/signInFormSubmit";
 import apfPageOneSubmit from "./functions/add-product-form/apfPageOneSubmit";
@@ -90,8 +114,16 @@ import apfImgUpload from "./functions/add-product-form/apfImgUpload";
 import apfFileInputDragOn from "./functions/add-product-form/apfFileInputDragOn";
 import apfDeleteImage from "./functions/add-product-form/apfDeleteImage";
 import epfEditAttribute from "./functions/edit-product-form/epfEditAttribute";
+import epfSubmitEdits from "./functions/edit-product-form/epfSubmitEdits";
+import epfCancelEdits from "./functions/edit-product-form/epfCancelEdits";
+import epfChangeDeleteStatus from "./functions/edit-product-form/epfChangeDeleteStatus";
+import changeDisplayedProductColor from "./functions/changeDisplayedProductColor";
+import deleteProduct from "./functions/deleteProduct";
+import editProduct from "./functions/editProduct";
 import getProducts from "./functions/getProducts";
 import getProduct from "./functions/getProduct";
+import setProductData from "./functions/setProductData";
+import setCartData from "./functions/setCartData";
 import checkAuthToken from "./functions/checkAuthToken";
 import resetDataValues from "./functions/resetDataValues";
 import data from "./data";
@@ -115,28 +147,21 @@ export default {
     apfPageFourSubmit,
     signInFormEdit,
     signInFormSubmit,
+    setNavData,
     toggleDropdown,
-    reRoute,
     resetDataValues,
     getProducts,
     getProduct,
+    setProductData,
+    setCartData,
     checkAuthToken,
-    editProduct: function(productPath) {
-      console.log("editing product");
-      console.log(productPath);
-
-      this.getProduct(productPath);
-
-      // let productPathDbFormat = productPath
-
-      // for (var i = 0; i < this.products.length; i++) {
-      //   if (this.products[i].productPath["S"] === productPath) {
-      //     this.product = cloneDeep(this.products[i]);
-      //     break;
-      //   }
-      // }
-    },
-    epfEditAttribute
+    editProduct,
+    epfEditAttribute,
+    epfSubmitEdits,
+    epfCancelEdits,
+    epfChangeDeleteStatus,
+    deleteProduct,
+    changeDisplayedProductColor
   }
 };
 </script>
@@ -149,9 +174,46 @@ body {
 #app {
   font-family: "Lato", sans-serif;
   color: #333333;
+  position: relative;
 }
 .sitebrand {
   font-family: "Calistoga", cursive;
   color: #313190;
+}
+.brk-xl {
+  display: none;
+}
+.cart {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-bottom-left-radius: 6px;
+  box-shadow: 0px 0px 5px #ccc;
+  cursor: pointer;
+  z-index: 1;
+  transition: background-color 0.2s;
+}
+.cart:hover {
+  background-color: rgba(0, 0, 0, 0.32);
+}
+.cart-txt {
+  margin: 0;
+  padding-left: 3px;
+  color: black;
+}
+@media (min-width: 932px) {
+  .brk-xl {
+    display: block;
+  }
+}
+
+@media (max-width: 700px) {
+  .cart {
+    display: none;
+  }
 }
 </style>

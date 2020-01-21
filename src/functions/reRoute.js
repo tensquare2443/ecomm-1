@@ -10,8 +10,4 @@ export default function(newRoute, navigate) {
   if (navigate) {
     this.$router.push(newRoute);
   }
-
-  if (newRoute.includes("/admin")) {
-    this.adminSubRoute = newRoute.split("/")[2];
-  }
 }

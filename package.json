@@ -15,7 +15,6 @@
   "dependencies": {
     "aws-sdk": "^2.596.0",
     "clone-deep": "^4.0.1",
-    "stripe": "^7.14.0",
     "uuid": "^3.3.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"

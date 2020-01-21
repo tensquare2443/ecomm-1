@@ -5,7 +5,7 @@ export default function(route) {
     if (route !== currentRouteDetails.path) {
       console.log("getting on click");
       console.log(`getting prods with: ${route}`);
-      this.getProducts(route);
+      this.getProducts(route, "update productsData");
       this.$router.push(route);
     }
   } else {

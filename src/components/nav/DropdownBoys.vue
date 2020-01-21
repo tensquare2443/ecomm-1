@@ -1,15 +1,76 @@
 <template>
   <div
     class="nav__dropdown"
-    :class="{ 'nav__dropdown-status': navDropdown === 'boys' }"
+    :class="{
+      'nav__dropdown-status': navDropdown === 'boys' && !navData.dropdownLgOff
+    }"
   >
-    <h3 style="text-align: center;">Boys Dropdown</h3>
+    <div class="nav__dropdown-content">
+      <div class="nav__dropdown-column--left">
+        <TitleLink
+          :getProducts="getProducts"
+          :route="'/products/boys/tops'"
+          :btnTxt="'Tops'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/boys/tops/t-shirts'"
+          :btnTxt="'T-Shirts'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/boys/tops/button-downs'"
+          :btnTxt="'Button-Downs'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/boys/tops/sweaters'"
+          :btnTxt="'Sweaters'"
+        />
+      </div>
+      <div class="nav__dropdown-column--right">
+        <TitleLink
+          :getProducts="getProducts"
+          :route="'/products/boys/bottoms'"
+          :btnTxt="'Bottoms'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/boys/bottoms/pants'"
+          :btnTxt="'Pants'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/boys/bottoms/shorts'"
+          :btnTxt="'Shorts'"
+        />
+        <TitleLink
+          :getProducts="getProducts"
+          :route="'/products/boys/accessories'"
+          :btnTxt="'Accessories'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/boys/accessories/hats'"
+          :btnTxt="'Hats'"
+        />
+        <TxtLink
+          :getProducts="getProducts"
+          :route="'/products/boys/accessories/gloves'"
+          :btnTxt="'Gloves'"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import TitleLink from "./TitleLink";
+import TxtLink from "./TxtLink";
+
 export default {
-  props: ["reRoute", "navDropdown"]
+  props: ["navDropdown", "getProducts", "navData"],
+  components: { TitleLink, TxtLink }
 };
 </script>
 

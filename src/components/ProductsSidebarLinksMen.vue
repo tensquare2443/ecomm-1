@@ -1,0 +1,79 @@
+<template>
+  <div>
+    <TitleLink
+      :getProducts="getProducts"
+      :route="'/products/men/tops'"
+      :btnTxt="'Tops'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/tops/t-shirts'"
+      :btnTxt="'T-Shirts'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/tops/polos'"
+      :btnTxt="'Polos'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/tops/button-downs'"
+      :btnTxt="'Button-Downs'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/tops/sweaters'"
+      :btnTxt="'Sweaters'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/tops/sweatshirts'"
+      :btnTxt="'Sweatshirts'"
+    />
+    <TitleLink
+      :getProducts="getProducts"
+      :route="'/products/men/bottoms'"
+      :btnTxt="'Bottoms'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/bottoms/khakis'"
+      :btnTxt="'Khakis'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/bottoms/jeans'"
+      :btnTxt="'Jeans'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/bottoms/sweatpants'"
+      :btnTxt="'Sweatpants'"
+    />
+    <TitleLink
+      :getProducts="getProducts"
+      :route="'/products/men/accessories'"
+      :btnTxt="'Accessories'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/accessories/hats'"
+      :btnTxt="'Hats'"
+    />
+    <TxtLink
+      :getProducts="getProducts"
+      :route="'/products/men/accessories/gloves'"
+      :btnTxt="'Gloves'"
+    />
+  </div>
+</template>
+
+<script>
+import TitleLink from "../components/nav/TitleLink";
+import TxtLink from "../components/nav/TxtLink";
+
+export default {
+  props: ["getProducts"],
+  components: {TxtLink, TitleLink}
+}
+</script>

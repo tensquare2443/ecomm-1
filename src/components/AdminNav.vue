@@ -1,19 +1,12 @@
 <template>
   <div class="admin-nav">
     <div>
-      <h2 class="admin-nav__brand sitebrand">Brand</h2>
+      <router-link to="/" target="_blank" class="brand-link">
+        <h2 class="admin-nav__brand sitebrand">Brand</h2>
+      </router-link>
     </div>
     <div>
-      <!-- <button
-        @click="reRoute('/admin/add-product')"
-        class="admin-nav__add-product"
-      >
-        Add Product
-      </button> -->
-      <router-link
-        to="/admin/add-product"
-        @click.native="reRoute('/admin/add-product')"
-      >
+      <router-link to="/admin/add-product">
         <button class="admin-nav__add-product">
           Add Product
         </button>
@@ -21,12 +14,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: ["reRoute"]
-};
-</script>
 
 <style scoped>
 .admin-nav {
@@ -57,5 +44,8 @@ export default {
 .admin-nav__add-product:hover {
   color: white;
   background-color: #313190;
+}
+.brand-link {
+  text-decoration: none;
 }
 </style>
