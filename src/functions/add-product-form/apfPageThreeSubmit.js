@@ -9,7 +9,7 @@ export default function(e) {
 
   for (var i = 0; i < imgs.length; i++) {
     if (imgs[i].thumbnailImg.file === "") {
-      console.log(i);
+      // console.log(i);
       imgs[i].thumbnailImg.invalidity =
         "Please upload a thumbnail image for this color.";
       pageThreeValidity = false;

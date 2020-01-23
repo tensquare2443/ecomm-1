@@ -19,7 +19,9 @@ export default function() {
     authorizingUser: false,
     navData: {
       dropdownSm: false,
-      dropdownLgOff: false
+      dropdownLgOff: false,
+      productsDropdownSm: false,
+      productsDropdownSmDept: false
     },
     navDropdown: false,
     user: false,

@@ -34,7 +34,8 @@ export default function(e) {
       sessionStorage.setItem("ecommAppUsername", username);
       sessionStorage.setItem("ecommAppToken", token);
       this.signInForm.submitting = false;
-      this.reRoute("/admin/products", true);
+      // this.reRoute("/admin/products", true);
+      this.$router.push("/admin/products");
     })
     .catch(e => {
       this.signInForm.submitting = false;

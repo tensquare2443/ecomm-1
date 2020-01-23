@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <router-link to="/cart">
-      <div v-if="cartData.products.length > 0" class="cart">
+  <div id="app" @click="setProductData">
+    <router-link to="/cart" class="cart-link">
+      <div v-if="cartData.products.length > 0 && !$route.path.includes('/admin')" class="cart">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +71,6 @@
 imgs
 - size: 1040x1380
 - bg: #e8e8e8, rgb(232,232,232)
-
 default colors:
 - light denim: 7285e4
 - medium denim: 3b4eac
@@ -83,21 +82,11 @@ default colors:
 
 /*
 todo:
-SOMEWHATDONE-Create images for uploading.
-DONE-signify selected color on thumbnail on products page
--correctly toggle qty dropdown on product page
--Design home page
--put mobile cart in nav dropdown, finish rest of mobile nav dropdown
--sticky cart logo
--S3 name location
--remove console logs
--Make tokens in local instead of sessionstorage. does this prevent double token changes?
--responsify everything
+-add more products
 
-OTHER
+other:
 - delete git from sub-functions in lambda folder
 - install npm in lambda folder?
-
 */
 import toggleDropdown from "./functions/toggleDropdown";
 import setNavData from "./functions/setNavData";
@@ -162,6 +151,11 @@ export default {
     epfChangeDeleteStatus,
     deleteProduct,
     changeDisplayedProductColor
+  },
+  mounted() {
+    if (sessionStorage.ecommAppCartData) {
+      this.cartData = JSON.parse(sessionStorage.ecommAppCartData);
+    }
   }
 };
 </script>
@@ -183,18 +177,20 @@ body {
 .brk-xl {
   display: none;
 }
-.cart {
-  position: absolute;
+.cart-link {
+  position: fixed;
   top: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.22);
+  z-index: 1;
+}
+.cart {
+  background-color: #aaa;
   display: flex;
   align-items: center;
   padding: 6px 12px;
   border-bottom-left-radius: 6px;
   box-shadow: 0px 0px 5px #ccc;
   cursor: pointer;
-  z-index: 1;
   transition: background-color 0.2s;
 }
 .cart:hover {

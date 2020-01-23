@@ -45,4 +45,10 @@ export default {
 .modal-open {
   overflow: hidden;
 }
+
+@media (max-width: 1000px) {
+  .admin__grid {
+    grid-template-columns: 0 1fr;
+  }
+}
 </style>

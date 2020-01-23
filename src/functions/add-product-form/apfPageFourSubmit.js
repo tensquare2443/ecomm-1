@@ -110,7 +110,7 @@ export default function(e) {
       let productPath = [];
 
       productPath.push("[]");
-      console.log(`location: ${location}`);
+      // console.log(`location: ${location}`);
       location.split("/").forEach(folder => productPath.push(`[${folder}]`));
       productPath.push(`#${productId}#`);
 
@@ -126,7 +126,7 @@ export default function(e) {
     const formatItemProductTags = tags => {
       let tagsFormatted = [];
 
-      console.log(`tags: ${tags}`);
+      // console.log(`tags: ${tags}`);
 
       if (tags !== "") {
         tags.split(",").forEach(tag => tagsFormatted.push(tag));
@@ -153,7 +153,7 @@ export default function(e) {
   };
 
   const uploadItemToDb = (imgUrls, apfData) => {
-    console.log("uploading");
+    // console.log("uploading");
 
     apfData = addUrlsToApfData(imgUrls, apfData);
     apfData = formatDbItem(apfData, productId);
@@ -210,7 +210,7 @@ export default function(e) {
         // console.log(JSON.stringify(imgUrls));
 
         if (Object.keys(imgUrls).length === imgsCount) {
-          console.log(this.addProductForm);
+          // console.log(this.addProductForm);
           uploadItemToDb(imgUrls, cloneDeep(this.addProductForm));
         }
       }

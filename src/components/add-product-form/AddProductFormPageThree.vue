@@ -474,4 +474,17 @@ export default {
   color: #c00;
   text-align: center;
 }
+
+@media (max-width: 480px) {
+  .main-img-btns {
+    flex-direction: column;
+  }
+  .main-img-btn-container.left {
+    padding-right: initial;
+  }
+  .main-img-btn-container.right {
+    padding-left: initial;
+    margin-top: 5px;
+  }
+}
 </style>

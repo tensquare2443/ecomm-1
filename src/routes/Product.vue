@@ -91,7 +91,7 @@
             </button>
           </div>
           <div>
-            <router-link to="/checkout">
+            <router-link @click.native="setProductData('TOGGLE_ADDED_TO_CART_MODAL')" to="/checkout">
               <button class="added-checkout-btn">Checkout</button>
             </router-link>
           </div>
@@ -254,18 +254,19 @@
 
             <div class="add-to-cart">
               <div
-                @click="setProductData('TOGGLE_QUANTITY_DROPDOWN')"
                 :class="{ blbr: !productData.quantityDropdown }"
                 class="add-to-cart-displayed"
                 style="position: relative;"
+                qty-drop="true"
               >
-                <div>
-                  <p class="add-to-cart-quantity">
+                <div qty-drop="true">
+                  <p class="add-to-cart-quantity" qty-drop="true">
                     {{ productData.addToCartQuantity }}
                   </p>
                 </div>
-                <div style="display: flex;">
+                <div style="display: flex;" qty-drop="true">
                   <svg
+                    qty-drop="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -279,15 +280,18 @@
                   </svg>
                 </div>
                 <div
+                  qty-drop="true"
                   class="quantity-dropdown-items"
                   :class="{ 'items-displayed': productData.quantityDropdown }"
                 >
                   <div
+                    qty-drop="true"
                     v-for="number in [1, 2, 3, 4, 5]"
                     :key="number"
                     class="quantity-dropdown-item"
                   >
                     <p
+                      qty-drop="true"
                       @click="
                         setProductData('CHANGE_CART_QUANTITY', { number })
                       "
@@ -335,7 +339,7 @@ export default {
   ],
   components: { Nav, Loading },
   mounted() {
-    console.log("getting product on mount");
+    // console.log("getting product on mount");
     this.getProduct(this.$route.path, "update productData");
   },
   methods: {
@@ -554,7 +558,7 @@ export default {
   text-align: center;
 }
 .added-modal-bg {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
@@ -728,6 +732,24 @@ export default {
 @media (max-width: 576px) {
   .added-modal {
     margin-top: 15px;
+  }
+  .added__all-data {
+    flex-direction: column;
+  }
+  .added-img-container {
+    flex: initial;
+    width: 100px;
+    margin: auto;
+    margin-bottom: 15px;
+  }
+  .added-data-key {
+    font-weight: bold;
+  }
+  .added__btns {
+    grid-template-columns: 1fr;
+  }
+  .added-checkout-btn {
+    margin-top: 7px;
   }
 }
 </style>

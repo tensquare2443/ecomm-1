@@ -77,7 +77,6 @@ export default {
     this.editProduct(this.$route.path);
   },
   beforeDestroy() {
-    console.log("AdminProduct beforedestroy");
     this.resetDataValues([
       "editProductForm",
       "product"

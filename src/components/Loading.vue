@@ -1,11 +1,17 @@
 <template>
-  <div class="lds-ellipsis">
+  <div class="lds-ellipsis" :class="{ 'z-neg': zIndex === 'neg' }">
     <div></div>
     <div></div>
     <div></div>
     <div></div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["zIndex"]
+};
+</script>
 
 <style scoped>
 .lds-ellipsis {
@@ -14,6 +20,9 @@
   height: 80px;
   display: block;
   margin: 30px auto 0 auto;
+}
+.lds-ellipsis.z-neg {
+  z-index: -1;
 }
 .lds-ellipsis div {
   position: absolute;

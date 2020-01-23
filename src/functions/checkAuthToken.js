@@ -22,13 +22,22 @@ export default function() {
         json === "User not found" ||
         json === "Invalid token"
       ) {
-        this.$router.push("/admin/sign-in");
+        if (this.$route.path !== "/admin/sign-in") {
+          this.$router.push("/admin/sign-in");
+        }
+      } else {
+        if (this.$route.path === "/admin/sign-in") {
+          this.$router.push("/admin/products");
+        }
       }
       this.authorizingUser = false;
     })
     .catch(e => {
-      console.log(e);
-      this.$router.push("/admin/sign-in");
+      // console.log(e);
+      console.log(this.$route.path);
+      if (this.$route.path !== "/admin/sign-in") {
+        this.$router.push("/admin/sign-in");
+      }
       this.authorizingUser = false;
     });
 }

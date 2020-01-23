@@ -438,6 +438,7 @@ export default {
 .content {
   padding-left: 15px;
   padding-right: 15px;
+  box-sizing: border-box;
 }
 .title {
   text-align: center;
@@ -461,7 +462,10 @@ export default {
   border-radius: 3px;
   padding-left: 15px;
   padding-right: 15px;
-  margin-bottom: 30px;
+  width: 1100px;
+  max-width: 100%;
+  margin: auto auto 30px auto;
+  box-sizing: border-box;
 }
 .attribute {
   display: grid;
@@ -674,5 +678,12 @@ export default {
 .close-icon:hover {
   background-color: #bbb;
   border-radius: 2px;
+}
+
+@media (max-width: 700px) {
+  .content {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 </style>

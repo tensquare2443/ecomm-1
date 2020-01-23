@@ -190,8 +190,6 @@ export default {
   props: ["addProductForm", "apfPageFourSubmit", "navigateApf"],
   components: { LoadingLightSm },
   mounted() {
-    console.log(`this.addProductForm:`);
-    console.log(JSON.stringify(this.addProductForm));
     document.querySelector(".admin__content").scrollTop = 0;
   }
 };

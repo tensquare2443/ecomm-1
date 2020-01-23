@@ -1,6 +1,22 @@
 const cloneDeep = require("clone-deep");
 
 export default function(action, payload) {
+  if (typeof action === "object") {
+    if (this.productData.quantityDropdown) {
+      let productData = cloneDeep(this.productData);
+      productData.quantityDropdown = false;
+      this.productData = productData;
+      return;
+    } else {
+      if (action.target.getAttribute("qty-drop") === "true") {
+        let productData = cloneDeep(this.productData);
+        productData.quantityDropdown = true;
+        this.productData = productData;
+        return;
+      }
+    }
+  }
+
   const setMainImgs = payload => {
     let product = payload.product;
     let color = payload.color;
@@ -60,10 +76,7 @@ export default function(action, payload) {
         addToCartQuantity: 1,
         quantityDropdown: false,
         addedModal: {
-          display: false //,
-          // img: false,
-          // color: false,
-          // options: false
+          display: false
         }
       };
       break;
@@ -97,15 +110,8 @@ export default function(action, payload) {
 
       this.productData = productData;
       break;
-    case "TOGGLE_QUANTITY_DROPDOWN":
-      console.log("toggle");
-      productData = cloneDeep(this.productData);
-      productData.quantityDropdown = !productData.quantityDropdown;
-
-      this.productData = productData;
-      break;
     case "CHANGE_CART_QUANTITY":
-      console.log("change");
+      // console.log("change");
       productData = cloneDeep(this.productData);
       productData.addToCartQuantity = +payload.number;
 
@@ -114,6 +120,12 @@ export default function(action, payload) {
     case "TOGGLE_ADDED_TO_CART_MODAL":
       productData = cloneDeep(this.productData);
       productData.addedModal.display = !productData.addedModal.display;
+
+      if (productData.addedModal.display) {
+        document.querySelector('body').style.overflow = "hidden";
+      } else {
+        document.querySelector('body').style.overflow = "initial";
+      }
 
       this.productData = productData;
       break;

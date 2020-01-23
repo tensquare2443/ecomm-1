@@ -23,7 +23,7 @@
             >
           </span>
         </p>
-        <Loading v-if="productsLoading" />
+        <Loading v-if="productsLoading" :zIndex="'neg'" />
         <div
           v-else-if="products && products.length !== 0"
           class="products-listed"
@@ -111,7 +111,7 @@ export default {
   ],
   components: { Nav, Loading, ProductsSidebarWrapper },
   mounted() {
-    console.log("getting products on mount");
+    // console.log("getting products on mount");
     this.getProducts(this.$route.path, "update productsData");
   },
   methods: {

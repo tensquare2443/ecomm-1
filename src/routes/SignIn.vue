@@ -43,9 +43,12 @@
 import LoadingLightSm from "../components/LoadingLightSm";
 
 export default {
-  props: ["signInFormEdit", "signInFormSubmit", "signInForm"],
+  props: ["signInFormEdit", "signInFormSubmit", "signInForm", "checkAuthToken"],
   components: {
     LoadingLightSm
+  },
+  created() {
+    this.checkAuthToken();
   }
 };
 </script>
@@ -114,5 +117,14 @@ export default {
 .sign-in__form-invalid {
   text-align: center;
   color: #c00;
+}
+
+@media (max-width: 500px) {
+  .sign-in {
+    margin-top: 0;
+    border: initial;
+    box-shadow: initial;
+    background-color: initial;
+  }
 }
 </style>

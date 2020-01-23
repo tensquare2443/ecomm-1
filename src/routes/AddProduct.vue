@@ -71,11 +71,9 @@ export default {
     "editProductForm"
   ],
   created() {
-    console.log("admin add product created");
     this.checkAuthToken();
   },
   beforeDestroy() {
-    console.log("beforeDestroy");
     this.resetDataValues(["addProductForm"]);
   }
 };

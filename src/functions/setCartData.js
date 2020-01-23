@@ -1,3 +1,5 @@
+import { s3Bucket } from "../appVars";
+
 export default function(action, payload) {
   switch (action) {
     case "ADD_PRODUCT":
@@ -6,6 +8,8 @@ export default function(action, payload) {
       let cartData = JSON.parse(JSON.stringify(this.cartData));
       const productPath = product.productPath["S"];
       const quantity = productData.addToCartQuantity;
+      const name = product.name["S"];
+      const price = product.price["N"];
       let options = {};
 
       options.Color = productData.color;
@@ -28,7 +32,7 @@ export default function(action, payload) {
 
       for (var j = 0; j < productData.mainImgs.length; j++) {
         if (productData.mainImgs[j].ranking === 1) {
-          var imgUrl = productData.mainImgs[j].url;
+          var imgUrlEnd = productData.mainImgs[j].url.replace(`https://${s3Bucket}`, "");
           break;
         }
       }
@@ -43,12 +47,15 @@ export default function(action, payload) {
           productPath,
           quantity,
           options,
-          imgUrl,
-          product
+          imgUrlEnd,
+          name,
+          price//,
+          // product
         });
       }
 
       this.cartData = cartData;
+      sessionStorage.setItem("ecommAppCartData", JSON.stringify(cartData));
       this.setProductData("TOGGLE_ADDED_TO_CART_MODAL");
       break;
     case "REMOVE_PRODUCT":
@@ -58,6 +65,7 @@ export default function(action, payload) {
       cartData.products.splice(index, 1);
 
       this.cartData = cartData;
+      sessionStorage.setItem("ecommAppCartData", JSON.stringify(cartData));
       break;
     default:
       break;

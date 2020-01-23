@@ -18,7 +18,8 @@
             <div class="table-txt-container">
               <p class="table-txt header-txt">Created</p>
             </div>
-            <div class="table-txt-container--price">
+            <!-- <div class="table-txt-container--price"> -->
+            <div class="table-txt-container">
               <p class="table-txt header-txt product-price-txt">Price</p>
             </div>
             <div class="table-txt-container">
@@ -32,7 +33,12 @@
             class="table-row"
           >
             <div class="table-txt-container">
-              <p class="table-txt">{{ product.name["S"] }}</p>
+              <p class="table-txt">
+                {{ product.name["S"] }}
+                <span class="product-path-sm">
+                  <br>{{ getPath(product.productPath["S"]) }}
+                </span>
+              </p>
             </div>
             <div class="table-txt-container">
               <p class="table-txt">
@@ -47,7 +53,8 @@
                 {{ getCreationDate(+product.createdAt["N"]) }}
               </p>
             </div>
-            <div class="table-txt-container--price">
+            <!-- <div class="table-txt-container--price"> -->
+            <div class="table-txt-container">
               <p class="table-txt product-price-txt">
                 ${{ product.price["N"] }}
               </p>
@@ -170,6 +177,9 @@ export default {
 .table-txt-container {
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .table-txt-container--price {
   display: flex;
@@ -191,5 +201,40 @@ export default {
 }
 .edit-product-symbol:hover {
   background-color: #ddd;
+}
+.product-path-sm {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 15fr 0 15fr 7fr 5fr 3fr;
+  }
+}
+@media (max-width: 700px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 5fr 0 5fr 0 2fr 1fr;
+  }
+  .content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media (max-width: 600px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 5fr 0 5fr 0 0 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 5fr 0 0 0 0 1fr;
+  }
+  .product-path-sm {
+    display: inline;
+  }
 }
 </style>

@@ -34,13 +34,13 @@
                   )}`
                 "
               >
-                <img :src="product.imgUrl" class="product-img" alt="" />
+                <img :src="`https://${s3Bucket}${product.imgUrlEnd}`" class="product-img" alt="" />
               </router-link>
             </div>
             <div class="product-data-container">
               <div>
                 <p class="product-name-txt">
-                  <router-link
+                  <!-- <router-link
                     :to="
                       `/product/${getPath(product.productPath)}/${getProductId(
                         product.productPath
@@ -49,6 +49,16 @@
                     class="product-name-link"
                   >
                     {{ product.product.name["S"] }}
+                  </router-link> -->
+                  <router-link
+                    :to="
+                      `/product/${getPath(product.productPath)}/${getProductId(
+                        product.productPath
+                      )}`
+                    "
+                    class="product-name-link"
+                  >
+                    {{ product.name }}
                   </router-link>
                 </p>
                 <div class="product-options">
@@ -77,8 +87,11 @@
                       <strong>{{ optionKey }}</strong
                       >: {{ product.options[optionKey] }}
                     </p>
-                    <p class="product-detail">
+                    <!-- <p class="product-detail">
                       <strong>Price</strong>: ${{ product.product.price["N"] }}
+                    </p> -->
+                    <p class="product-detail">
+                      <strong>Price</strong>: ${{ product.price }}
                     </p>
                   </div>
                 </div>
@@ -90,9 +103,16 @@
                   </p>
                 </div>
                 <div>
-                  <p class="product-subtotal-txt">
+                  <!-- <p class="product-subtotal-txt">
                     ${{
                       (product.quantity * +product.product.price["N"]).toFixed(
+                        2
+                      )
+                    }}
+                  </p> -->
+                  <p class="product-subtotal-txt">
+                    ${{
+                      (product.quantity * +product.price).toFixed(
                         2
                       )
                     }}
@@ -143,6 +163,7 @@
 <script>
 import Nav from "../components/nav/Nav";
 import { getPath, getProductId } from "../functions/general-helper-functions";
+import { s3Bucket } from "../appVars";
 
 export default {
   props: [
@@ -154,13 +175,17 @@ export default {
     "navData",
     "setNavData"
   ],
+  data() {
+    return { s3Bucket }
+  },
   components: { Nav },
   computed: {
     getSubtotal: function() {
       let subtotal = 0;
 
       this.cartData.products.forEach(productData => {
-        const price = +productData.product.price["N"];
+        // const price = +productData.product.price["N"];
+        const price = +productData.price;
         const quantity = productData.quantity;
 
         subtotal += price * quantity;
