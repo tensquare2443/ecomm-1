@@ -1,4 +1,4 @@
-import { apiKey, getProductEndpoint } from "../appVars";
+import { apiKey, getProductEndpoint } from "../defineAppVars";
 import setProductData from "./setProductData";
 
 const cloneDeep = require("clone-deep");

@@ -1,4 +1,4 @@
-import { s3Bucket } from "../appVars";
+import { s3Bucket } from "../defineAppVars";
 
 export default function(action, payload) {
   switch (action) {

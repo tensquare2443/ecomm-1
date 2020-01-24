@@ -1,4 +1,4 @@
-import { apiKey, addProductEndpoint, s3Bucket } from "../../appVars.js";
+import { apiKey, addProductEndpoint, s3Bucket } from "../../defineAppVars.js";
 const AWS = require("aws-sdk");
 
 export default function(e) {

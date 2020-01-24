@@ -1,4 +1,4 @@
-import { apiKey, checkAuthTokenEndpoint } from "../appVars";
+import { apiKey, checkAuthTokenEndpoint } from "../defineAppVars";
 
 export default function() {
   // console.log("checking auth token");

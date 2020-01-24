@@ -1,4 +1,4 @@
-import { apiKey, getProductsEndpoint, getProductEndpoint } from "../appVars.js";
+import { apiKey, getProductsEndpoint, getProductEndpoint } from "../defineAppVars.js";
 
 export default function(newRoute, navigate) {
   console.log("REROUTE");

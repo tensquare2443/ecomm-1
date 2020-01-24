@@ -1,4 +1,4 @@
-import { apiKey, deleteProductEndpoint } from "../appVars";
+import { apiKey, deleteProductEndpoint } from "../defineAppVars";
 
 export default function(productPath) {
   //arrive with: []_[men]_[tops]_[button-downs]_#b62c0140-341b-11ea-b869-41343a2991d6#

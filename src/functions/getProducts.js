@@ -1,4 +1,4 @@
-import { apiKey, getProductsEndpoint } from "../appVars.js";
+import { apiKey, getProductsEndpoint } from "../defineAppVars.js";
 import { setProductsData } from "./general-helper-functions";
 
 export default function(route, updateProductsData) {

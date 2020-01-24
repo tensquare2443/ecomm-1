@@ -1,5 +1,5 @@
 import { getDbProductPath } from "./helper-functions";
-import { apiKey, addProductEndpoint } from "../../appVars";
+import { apiKey, addProductEndpoint } from "../../defineAppVars";
 
 export default function(e) {
   e.preventDefault();

@@ -163,7 +163,7 @@
 <script>
 import Nav from "../components/nav/Nav";
 import { getPath, getProductId } from "../functions/general-helper-functions";
-import { s3Bucket } from "../appVars";
+import { s3Bucket } from "../defineAppVars";
 
 export default {
   props: [

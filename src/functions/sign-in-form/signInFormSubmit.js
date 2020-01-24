@@ -1,4 +1,4 @@
-import { apiKey, signInUserEndpoint } from "../../appVars.js";
+import { apiKey, signInUserEndpoint } from "../../defineAppVars.js";
 
 export default function(e) {
   e.preventDefault();
