@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV === "production") {
+if (process.env.prod === "true") {
   var apiKey = process.env.apiKey;
   var getProductsEndpoint = process.env.getProductsEndpoint;
   var signInUserEndpoint = process.env.signInUserEndpoint;
