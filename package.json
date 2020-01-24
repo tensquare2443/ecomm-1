@@ -15,6 +15,8 @@
   "dependencies": {
     "aws-sdk": "^2.596.0",
     "clone-deep": "^4.0.1",
+    "each-async": "^1.1.1",
+    "indent-string": "^4.0.0",
     "uuid": "^3.3.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
