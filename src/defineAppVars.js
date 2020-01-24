@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === "production") {
   var deleteProductEndpoint = process.env.deleteProductEndpoint;
   var checkAuthTokenEndpoint = process.env.checkAuthTokenEndpoint;
   var s3Bucket = process.env.s3Bucket;
-} else {
+} else { 
   apiKey = require("./appVars").apiKey;
   getProductsEndpoint = require("./appVars").getProductsEndpoint;
   signInUserEndpoint = require("./appVars").signInUserEndpoint;
