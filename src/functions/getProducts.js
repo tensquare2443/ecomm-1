@@ -1,6 +1,9 @@
 import { apiKey, getProductsEndpoint } from "../defineAppVars.js";
 import { setProductsData } from "./general-helper-functions";
 
+console.log("getProductsEndpoint");
+console.log(getProductsEndpoint);
+
 export default function(route, updateProductsData) {
   // console.log(`getProducts arg: ${route}`);
   this.toggleDropdown();
