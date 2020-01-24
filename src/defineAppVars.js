@@ -12,7 +12,7 @@
   var signInUserEndpoint = "https://s0f0kqrml5.execute-api.us-east-1.amazonaws.com/prod/ecomm-app_sign-in-user";
   var addProductEndpoint = "https://svzkhien3i.execute-api.us-east-1.amazonaws.com/prod/ecomm-app_add-product";
   var getProductEndpoint = "https://9fetydrjva.execute-api.us-east-1.amazonaws.com/prod/ecomm-app_get-product";
-  var deleteProductEndpoint = "https://946gp0az60.execute-api.us-east-1.amazonaws.com/prod/ecomm-app_delete-produc";
+  var deleteProductEndpoint = "https://946gp0az60.execute-api.us-east-1.amazonaws.com/prod/ecomm-app_delete-product";
   var checkAuthTokenEndpoint = "https://uv0uzvob34.execute-api.us-east-1.amazonaws.com/prod/ecomm-app_check-auth-token";
   var s3Bucket = "ecomm-app-32";
 // } else { 
