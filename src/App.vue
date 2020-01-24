@@ -153,11 +153,6 @@ export default {
     changeDisplayedProductColor
   },
   mounted() {
-    if (1 === 1) {
-
-    } else {
-      console.log(require("./afw"));
-    }
     if (sessionStorage.ecommAppCartData) {
       this.cartData = JSON.parse(sessionStorage.ecommAppCartData);
     }
