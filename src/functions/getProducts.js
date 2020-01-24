@@ -3,6 +3,8 @@ import { setProductsData } from "./general-helper-functions";
 
 console.log("getProductsEndpoint");
 console.log(getProductsEndpoint);
+console.log(process.env.getProductsEndpoint);
+console.log(process.env);
 
 export default function(route, updateProductsData) {
   // console.log(`getProducts arg: ${route}`);
