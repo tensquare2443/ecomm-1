@@ -1,21 +1,21 @@
-if (require("./appVars")) {
-  var apiKey = require("./appVars").apiKey;
-  var getProductsEndpoint = require("./appVars").getProductsEndpoint;
-  var signInUserEndpoint = require("./appVars").signInUserEndpoint;
-  var addProductEndpoint = require("./appVars").addProductEndpoint;
-  var getProductEndpoint = require("./appVars").getProductEndpoint;
-  var deleteProductEndpoint = require("./appVars").deleteProductEndpoint;
-  var checkAuthTokenEndpoint = require("./appVars").checkAuthTokenEndpoint;
-  var s3Bucket = require("./appVars").s3Bucket;
+if (process.env.NODE_ENV === "production") {
+  var apiKey = process.env.apiKey;
+  var getProductsEndpoint = process.env.getProductsEndpoint;
+  var signInUserEndpoint = process.env.signInUserEndpoint;
+  var addProductEndpoint = process.env.addProductEndpoint;
+  var getProductEndpoint = process.env.getProductEndpoint;
+  var deleteProductEndpoint = process.env.deleteProductEndpoint;
+  var checkAuthTokenEndpoint = process.env.checkAuthTokenEndpoint;
+  var s3Bucket = process.env.s3Bucket;
 } else {
-  apiKey = process.env.apiKey;
-  getProductsEndpoint = process.env.getProductsEndpoint;
-  signInUserEndpoint = process.env.signInUserEndpoint;
-  addProductEndpoint = process.env.addProductEndpoint;
-  getProductEndpoint = process.env.getProductEndpoint;
-  deleteProductEndpoint = process.env.deleteProductEndpoint;
-  checkAuthTokenEndpoint = process.env.checkAuthTokenEndpoint;
-  s3Bucket = process.env.s3Bucket;
+  apiKey = require("./appVars").apiKey;
+  getProductsEndpoint = require("./appVars").getProductsEndpoint;
+  signInUserEndpoint = require("./appVars").signInUserEndpoint;
+  addProductEndpoint = require("./appVars").addProductEndpoint;
+  getProductEndpoint = require("./appVars").getProductEndpoint;
+  deleteProductEndpoint = require("./appVars").deleteProductEndpoint;
+  checkAuthTokenEndpoint = require("./appVars").checkAuthTokenEndpoint;
+  s3Bucket = require("./appVars").s3Bucket;
 }
 
 module.exports = {
